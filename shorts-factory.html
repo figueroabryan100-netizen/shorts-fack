@@ -1,16 +1,518 @@
-SHORTS FACTORY
-AI Short Scripts
-Pick a niche. Get a viral script. Film & upload. Repeat.
-1. PICK YOUR NICHE
-AI Tools
-Make Money
-Fitness
-Mindset
-Productivity
-Relationships
-Weird Facts
-Story Time
-2. TOPIC (OPTIONAL — LEAVE BLANK FOR AI PICK)
-GENERATE SCRIPT
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHORTS FACTORY — AI Video Scripts</title>
+<style>
+  :root {
+    --bg: #050508;
+    --panel: #0c0c14;
+    --panel2: #141420;
+    --accent: #00ff88;
+    --accent2: #00d4ff;
+    --accent3: #ff3366;
+    --text: #e8e8e8;
+    --text2: #666;
+    --border: #1a1a2e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .logo {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    color: var(--text2);
+    font-size: 15px;
+  }
 
-Copy everything. Film it on your phone. Upload. The algorithm does the rest.
+  .input-group {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text2);
+    margin-bottom: 10px;
+  }
+  select, input[type="text"] {
+    width: 100%;
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    color: var(--text);
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  select:focus, input:focus { border-color: var(--accent); }
+  select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23666'%3E%3Cpath d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+  }
+
+  .niche-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .niche-btn {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.15s;
+    color: var(--text);
+  }
+  .niche-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .niche-btn.active {
+    background: rgba(0,255,136,0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .generate-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #000;
+    border: none;
+    border-radius: 12px;
+    padding: 18px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+    margin-bottom: 30px;
+  }
+  .generate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,255,136,0.25);
+  }
+  .generate-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .result-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    display: none;
+    animation: slideUp 0.4s ease;
+  }
+  .result-card.visible { display: block; }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .result-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .result-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+  }
+  .copy-btn {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .copy-btn.copied { background: var(--accent); color: #000; border-color: var(--accent); }
+
+  .script-box {
+    background: var(--panel2);
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 14px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    font-family: inherit;
+  }
+  .hook {
+    color: var(--accent3);
+    font-weight: 700;
+  }
+  .cta {
+    color: var(--accent2);
+    font-weight: 600;
+  }
+  .time-tag {
+    display: inline-block;
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    color: var(--text2);
+    margin-right: 6px;
+  }
+
+  .hashtag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .hashtag {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: var(--accent2);
+  }
+
+  .tips-list {
+    list-style: none;
+  }
+  .tips-list li {
+    padding: 8px 0;
+    padding-left: 24px;
+    position: relative;
+    font-size: 14px;
+    color: var(--text2);
+  }
+  .tips-list li::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--text2);
+    font-size: 12px;
+  }
+
+  .loading {
+    text-align: center;
+    padding: 40px;
+    display: none;
+  }
+  .loading.visible { display: block; }
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 16px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 28px; }
+    .niche-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="logo">SHORTS FACTORY</div>
+    <h1>AI Short Scripts</h1>
+    <div class="subtitle">Pick a niche. Get a viral script. Film & upload. Repeat.</div>
+  </div>
+
+  <div class="input-group">
+    <label>1. Pick Your Niche</label>
+    <div class="niche-grid" id="nicheGrid">
+      <button class="niche-btn active" data-niche="ai-tools">AI Tools</button>
+      <button class="niche-btn" data-niche="money">Make Money</button>
+      <button class="niche-btn" data-niche="fitness">Fitness</button>
+      <button class="niche-btn" data-niche="mindset">Mindset</button>
+      <button class="niche-btn" data-niche="productivity">Productivity</button>
+      <button class="niche-btn" data-niche="relationships">Relationships</button>
+      <button class="niche-btn" data-niche="facts">Weird Facts</button>
+      <button class="niche-btn" data-niche="story">Story Time</button>
+    </div>
+  </div>
+
+  <div class="input-group">
+    <label>2. Topic (optional — leave blank for AI pick)</label>
+    <input type="text" id="topicInput" placeholder="e.g. how to use ChatGPT to write emails">
+  </div>
+
+  <button class="generate-btn" id="generateBtn" onclick="generateScript()">
+    GENERATE SCRIPT
+  </button>
+
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div style="color: var(--text2); font-size: 14px;">Agent writing your script...</div>
+  </div>
+
+  <div id="results"></div>
+
+  <div class="footer">
+    Copy everything. Film it on your phone. Upload. The algorithm does the rest.
+  </div>
+
+</div>
+
+<script>
+// Niche selection
+let selectedNiche = 'ai-tools';
+document.querySelectorAll('.niche-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.niche-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedNiche = btn.dataset.niche;
+  });
+});
+
+// Script database
+const scripts = {
+  'ai-tools': [
+    {
+      hook: "I just made $847 in 20 minutes using only AI.",
+      body: "And no, I'm not selling a course.\n\nI took a boring PDF I had sitting on my computer...\n\nFed it into Claude.\n\nTold it to turn it into a Notion template.\n\nListed it on Gumroad for $12.\n\nWent to bed.\n\nWoke up to 71 sales.",
+      cta: "Follow if you want the exact prompt I used.",
+      hashtags: "#ai #sidehustle #passiveincome #chatgpt #makemoneyonline #aitools #entrepreneur",
+      tips: ["Film this as a face-to-camera with excited energy", "Show your Gumroad dashboard as B-roll", "Use fast cuts between sentences", "Add text overlay on hook"]
+    },
+    {
+      hook: "This AI tool replaced my graphic designer.",
+      body: "And it costs $0.\n\nI used to pay $500/month for social media graphics.\n\nNow I type what I want...\n\nAnd the AI generates it in 10 seconds.\n\nLogos, thumbnails, Instagram posts — everything.\n\nMy designer was great. But she couldn't compete with free.",
+      cta: "Link in bio for the tool. Or just Google 'Canva AI'.",
+      hashtags: "#ai #design #freelance #canva #aitools #sidehustle #money",
+      tips: ["Screen record yourself using the tool", "Show before/after comparison", "Keep hook under 3 seconds", "Use trending audio"]
+    },
+    {
+      hook: "3 AI tools that will make you $10K this year.",
+      body: "Number 3 is the one nobody talks about.\n\n1. ElevenLabs — AI voiceovers that sound human\n\n2. Claude — writes better than most copywriters\n\n3. Make.com — connects everything so it runs while you sleep\n\nI use all three daily.\n\nMy business runs on autopilot.",
+      cta: "Save this. You'll need it later.",
+      hashtags: "#ai #automation #passiveincome #makemoney #entrepreneur #aitools #wealth",
+      tips: ["Use countdown format (3, 2, 1)", "Show each tool's interface briefly", "Add dramatic pause before #3", "Film in vertical 9:16"]
+    }
+  ],
+  'money': [
+    {
+      hook: "I asked 100 millionaires how they got rich.",
+      body: "87% said the same thing.\n\nIt wasn't crypto.\n\nIt wasn't stocks.\n\nIt wasn't real estate.\n\nIt was this:\n\nThey built something that made money while they slept.\n\nA product. A course. A template. A channel.\n\nSomething that scaled without their time.",
+      cta: "What are you building that scales?",
+      hashtags: "#wealth #millionaire #passiveincome #money #entrepreneur #rich #mindset",
+      tips: ["Film with authority — you're delivering research", "Use black background with white text for stats", "Slow down on the reveal", "End with question to drive comments"]
+    },
+    {
+      hook: "Stop trading time for money. Here's the math.",
+      body: "You make $30/hour.\n\nYou work 40 hours.\n\nThat's $1,200/week.\n\nNow build a $20 digital product.\n\nSell 60 copies.\n\nSame money. Zero hours after it's built.\n\nThe product keeps selling.\n\nYou keep sleeping.",
+      cta: "Follow for the blueprint.",
+      hashtags: "#passiveincome #sidehustle #money #wealth #financialfreedom #entrepreneur",
+      tips: ["Show calculator or spreadsheet on screen", "Use red text for 'trading time'", "Use green text for 'passive'", "Simple math = high share rate"]
+    }
+  ],
+  'fitness': [
+    {
+      hook: "I lost 30 lbs without counting a single calorie.",
+      body: "Everyone told me to track everything.\n\nIt made me miserable.\n\nSo I did this instead:\n\nWalk 10K steps daily.\n\nProtein at every meal.\n\nNo eating after 8 PM.\n\nThat's it.\n\n6 months later I'm down 30 lbs and I never opened MyFitnessPal.",
+      cta: "What worked for you? Drop it below.",
+      hashtags: "#fitness #weightloss #health #workout #gym #motivation #transformation",
+      tips: ["Show transformation photos if you have them", "Film at gym or walking outdoors", "Use before/after split screen", "Authenticity beats perfection"]
+    }
+  ],
+  'mindset': [
+    {
+      hook: "The richest guy I know wears a $40 watch.",
+      body: "He could buy Rolex.\n\nHe doesn't care.\n\nBecause he figured out something most people never do:\n\nWealth is quiet.\n\nThe loudest people are usually the brokest.\n\nThe guy in the Lambo? Rented.\n\nThe guy in the Camry? Owns 3 apartment buildings.",
+      cta: "Stop flexing. Start building.",
+      hashtags: "#mindset #wealth #success #motivation #entrepreneur #money #rich",
+      tips: ["Film in car or simple setting for contrast", "Use text overlay for key lines", "Slow, confident delivery", "This format goes viral on TikTok"]
+    }
+  ],
+  'productivity': [
+    {
+      hook: "I finished my entire workday by 9 AM.",
+      body: "Here's the system:\n\n1. Phone in another room\n\n2. One task. No tabs.\n\n3. 90-minute sprint, 20-minute break\n\n4. Repeat 3 times\n\nThat's 4.5 hours of deep work.\n\nMost people do 4.5 hours of shallow work in 10 hours.",
+      cta: "Try it tomorrow. Report back.",
+      hashtags: "#productivity #timemanagement #work #focus #deepwork #success #hustle",
+      tips: ["Film morning routine B-roll", "Show timer on screen", "Fast pace with jump cuts", "Use 'day in the life' format"]
+    }
+  ],
+  'relationships': [
+    {
+      hook: "The #1 sign someone will be successful.",
+      body: "It's not IQ.\n\nIt's not talent.\n\nIt's not even hard work.\n\nIt's how they treat people who can't help them.\n\nThe waiter.\n\nThe janitor.\n\nThe intern.\n\nWatch how someone acts when there's nothing in it for them.\n\nThat's who they really are.",
+      cta: "Tag someone who gets this.",
+      hashtags: "#relationships #success #mindset #life #wisdom #personality #growth",
+      tips: ["Film in public setting if possible", "Use emotional music", "Close-up on face for delivery", "High comment potential = algorithm boost"]
+    }
+  ],
+  'facts': [
+    {
+      hook: "The human body has 206 bones. Babies have 300.",
+      body: "They fuse together as you grow.\n\nBut here's what's wild:\n\nYour bones are completely replaced every 10 years.\n\nYou're literally not the same skeleton you were a decade ago.\n\nNeither is the person you're mad at.\n\nLet it go.",
+      cta: "Follow for facts that hit different.",
+      hashtags: "#facts #science #didyouknow #learn #mindblown #interesting #knowledge",
+      tips: ["Use skeleton graphic or X-ray footage", "Text overlay for the fact", "Dramatic pause before pivot", "Educational content = high saves"]
+    }
+  ],
+  'story': [
+    {
+      hook: "I got fired on a Monday. Bought a Tesla by Friday.",
+      body: "Not clickbait.\n\nMonday: Boss calls me in. 'We're letting you go.'\n\nTuesday: I panic-post my skills on LinkedIn.\n\nWednesday: 3 DMs. 2 calls. 1 offer.\n\nThursday: I negotiate. They say yes.\n\nFriday: I start Monday. Salary: 40% higher.\n\nGetting fired was the best thing that ever happened to me.",
+      cta: "Your worst day might be your best day. Trust it.",
+      hashtags: "#storytime #fired #career #job #success #motivation #life",
+      tips: ["Film in car for 'storytime' aesthetic", "Use day-by-day text overlays", "Build tension then release", "Story format = highest retention"]
+    }
+  ]
+};
+
+function generateScript() {
+  const btn = document.getElementById('generateBtn');
+  const loading = document.getElementById('loading');
+  const results = document.getElementById('results');
+  const topic = document.getElementById('topicInput').value.trim();
+
+  btn.disabled = true;
+  btn.textContent = 'GENERATING...';
+  results.innerHTML = '';
+  loading.classList.add('visible');
+
+  setTimeout(() => {
+    loading.classList.remove('visible');
+    btn.disabled = false;
+    btn.textContent = 'GENERATE SCRIPT';
+
+    const nicheScripts = scripts[selectedNiche] || scripts['ai-tools'];
+    const script = nicheScripts[Math.floor(Math.random() * nicheScripts.length)];
+
+    // Customize if topic provided
+    let hook = script.hook;
+    let body = script.body;
+    let cta = script.cta;
+
+    if (topic) {
+      hook = `I figured out how to ${topic.toLowerCase()} in 5 minutes.`;
+      body = `And I used to spend hours on this.\n\nEveryone overcomplicates it.\n\nHere's the dead-simple way:\n\n${body.split('\n\n').slice(2, 5).join('\n\n')}\n\nThat's literally it.\n\nNo special skills. No expensive tools.`;
+    }
+
+    results.innerHTML = `
+      <div class="result-card visible">
+        <div class="result-header">
+          <span class="result-title">HOOK (0-3 sec)</span>
+          <button class="copy-btn" onclick="copyThis(this)">Copy</button>
+        </div>
+        <div class="script-box"><span class="hook">${hook}</span></div>
+      </div>
+
+      <div class="result-card visible">
+        <div class="result-header">
+          <span class="result-title">SCRIPT (30-60 sec)</span>
+          <button class="copy-btn" onclick="copyThis(this)">Copy</button>
+        </div>
+        <div class="script-box">${body.replace(/\n\n/g, '<br><br>')}</div>
+      </div>
+
+      <div class="result-card visible">
+        <div class="result-header">
+          <span class="result-title">CTA (End)</span>
+          <button class="copy-btn" onclick="copyThis(this)">Copy</button>
+        </div>
+        <div class="script-box"><span class="cta">${cta}</span></div>
+      </div>
+
+      <div class="result-card visible">
+        <div class="result-header">
+          <span class="result-title">CAPTION + HASHTAGS</span>
+          <button class="copy-btn" onclick="copyThis(this)">Copy</button>
+        </div>
+        <div class="script-box" style="font-size:13px">
+          ${hook}\n\n${cta}\n\n<span class="hashtag-row">
+            ${script.hashtags.split(' ').map(h => `<span class="hashtag">${h}</span>`).join('')}
+          </span>
+        </div>
+      </div>
+
+      <div class="result-card visible">
+        <div class="result-header">
+          <span class="result-title">FILMING TIPS</span>
+        </div>
+        <ul class="tips-list">
+          ${script.tips.map(t => `<li>${t}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+
+    // Scroll to results
+    results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 1500);
+}
+
+function copyThis(btn) {
+  const text = btn.closest('.result-card').querySelector('.script-box').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
