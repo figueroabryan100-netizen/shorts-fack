@@ -6,96 +6,55 @@
 <title>SHORTS FACTORY WORKSHOP — Agent Studio</title>
 <style>
   :root {
-    --bg: #050508;
-    --bg2: #0a0a12;
-    --panel: #0c0c14;
-    --panel2: #141420;
-    --panel3: #1a1a2e;
-    --accent: #00ff88;
-    --accent2: #00d4ff;
-    --accent3: #ff3366;
-    --accent4: #ffaa00;
-    --accent5: #aa66ff;
-    --text: #e8e8e8;
-    --text2: #888;
-    --text3: #555;
-    --border: #1a1a2e;
-    --glow: rgba(0,255,136,0.3);
-    --glow2: rgba(0,212,255,0.3);
+    --bg: #050508; --bg2: #0a0a12; --panel: #0c0c14; --panel2: #141420; --panel3: #1a1a2e;
+    --accent: #00ff88; --accent2: #00d4ff; --accent3: #ff3366; --accent4: #ffaa00; --accent5: #aa66ff;
+    --text: #e8e8e8; --text2: #888; --text3: #555; --border: #1a1a2e;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    min-height: 100vh;
-    line-height: 1.5;
-    overflow-x: hidden;
-  }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; line-height: 1.5; overflow-x: hidden; }
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--panel3); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
-
   .app { max-width: 1200px; margin: 0 auto; padding: 16px; padding-bottom: 100px; }
-
   .header { text-align: center; padding: 20px 0 16px; }
   .logo { font-size: 11px; font-weight: 800; letter-spacing: 4px; color: var(--accent); margin-bottom: 4px; }
   h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
   .subtitle { color: var(--text2); font-size: 13px; margin-top: 4px; }
-  .live-indicator {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.2);
-    padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; color: var(--accent); margin-top: 10px;
-  }
+  .live-indicator { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.2); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; color: var(--accent); margin-top: 10px; }
   .live-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
-  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
 
   .workshop-floor { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 16px; margin-top: 16px; }
   .floor-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text2); margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; }
   .agent-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  @media (min-width: 600px) { .agent-grid { grid-template-columns: repeat(3, 1fr); } }
-  @media (min-width: 900px) { .agent-grid { grid-template-columns: repeat(5, 1fr); } }
-
-  .agent-card {
-    background: var(--panel2); border: 2px solid var(--border); border-radius: 14px;
-    padding: 14px 10px; text-align: center; cursor: pointer; transition: all 0.3s ease;
-    position: relative; overflow: hidden;
-  }
+  @media(min-width:600px) { .agent-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media(min-width:900px) { .agent-grid { grid-template-columns: repeat(5, 1fr); } }
+  .agent-card { background: var(--panel2); border: 2px solid var(--border); border-radius: 14px; padding: 14px 10px; text-align: center; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden; }
   .agent-card:hover { border-color: var(--accent); transform: translateY(-2px); }
   .agent-card.active-agent { border-color: var(--accent); box-shadow: 0 0 20px rgba(0,255,136,0.15); }
   .agent-card.resting { border-color: var(--accent2); opacity: 0.85; }
   .agent-card.collaborating { border-color: var(--accent5); animation: collabPulse 2s infinite; }
-  @keyframes collabPulse { 0%, 100% { box-shadow: 0 0 5px rgba(170,102,255,0.2); } 50% { box-shadow: 0 0 20px rgba(170,102,255,0.4); } }
-
+  @keyframes collabPulse { 0%,100% { box-shadow: 0 0 5px rgba(170,102,255,0.2); } 50% { box-shadow: 0 0 20px rgba(170,102,255,0.4); } }
   .agent-avatar { font-size: 40px; line-height: 1; margin-bottom: 8px; display: block; transition: transform 0.3s; }
   .agent-card:hover .agent-avatar { transform: scale(1.1); }
   .agent-name { font-size: 13px; font-weight: 700; display: block; }
   .agent-role { font-size: 10px; color: var(--text2); margin-top: 2px; }
   .agent-status { display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 10px; background: var(--panel3); }
-  .status-working { color: var(--accent); }
-  .status-resting { color: var(--accent2); }
-  .status-collab { color: var(--accent5); }
-  .status-idle { color: var(--text2); }
+  .status-working { color: var(--accent); } .status-resting { color: var(--accent2); } .status-collab { color: var(--accent5); } .status-idle { color: var(--text2); }
   .status-dot { width: 6px; height: 6px; border-radius: 50%; }
   .status-working .status-dot { background: var(--accent); animation: blink 1.5s infinite; }
   .status-resting .status-dot { background: var(--accent2); }
   .status-collab .status-dot { background: var(--accent5); animation: blink 1s infinite; }
   .status-idle .status-dot { background: var(--text3); }
-  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
   .agent-mood { font-size: 16px; margin-top: 4px; }
   .agent-task { font-size: 9px; color: var(--text3); margin-top: 4px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-  .speech-bubble {
-    position: absolute; top: -8px; right: -4px; background: var(--accent); color: #000;
-    font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 10px;
-    animation: popIn 0.3s ease; z-index: 10; max-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
+  .speech-bubble { position: absolute; top: -8px; right: -4px; background: var(--accent); color: #000; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 10px; animation: popIn 0.3s ease; z-index: 10; max-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   @keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
   .pipeline-section { margin-top: 16px; background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 16px; }
   .pipeline-track { display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-top: 12px; overflow-x: auto; padding-bottom: 8px; }
-  .pipeline-stage { flex: 1; min-width: 70px; text-align: center; padding: 10px 4px; border-radius: 10px; background: var(--panel2); border: 1px solid var(--border); font-size: 10px; font-weight: 600; color: var(--text2); transition: all 0.3s; }
+  .pipeline-stage { flex: 1; min-width: 60px; text-align: center; padding: 10px 4px; border-radius: 10px; background: var(--panel2); border: 1px solid var(--border); font-size: 10px; font-weight: 600; color: var(--text2); transition: all 0.3s; }
   .pipeline-stage.active { background: rgba(0,255,136,0.1); border-color: var(--accent); color: var(--accent); box-shadow: 0 0 15px rgba(0,255,136,0.1); }
   .pipeline-stage.done { background: rgba(0,255,136,0.05); border-color: rgba(0,255,136,0.3); color: var(--accent); }
   .pipeline-stage .stage-icon { font-size: 18px; display: block; margin-bottom: 4px; }
@@ -104,12 +63,12 @@
   .progress-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 10px; transition: width 0.5s ease; width: 0%; }
 
   .console { margin-top: 16px; display: grid; gap: 16px; }
-  @media (min-width: 900px) { .console { grid-template-columns: 1fr 320px; } }
+  @media(min-width:900px) { .console { grid-template-columns: 1fr 320px; } }
   .console-main { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 16px; }
   .console-sidebar { display: flex; flex-direction: column; gap: 16px; }
 
   .tabs { display: flex; gap: 4px; margin-bottom: 16px; overflow-x: auto; padding-bottom: 4px; }
-  .tab { background: var(--panel2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; font-size: 12px; font-weight: 600; color: var(--text2); cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+  .tab { background: var(--panel2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 12px; font-weight: 600; color: var(--text2); cursor: pointer; white-space: nowrap; transition: all 0.2s; }
   .tab:hover { border-color: var(--accent); color: var(--text); }
   .tab.active { background: rgba(0,255,136,0.1); border-color: var(--accent); color: var(--accent); }
   .tab-panel { display: none; }
@@ -118,25 +77,20 @@
 
   .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text2); margin-bottom: 10px; margin-top: 16px; }
   .section-label:first-child { margin-top: 0; }
-
   .niche-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin-bottom: 12px; }
   .niche-btn { background: var(--panel2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 12px; text-align: left; cursor: pointer; transition: all 0.15s; color: var(--text); font-size: 13px; font-weight: 600; }
   .niche-btn:hover { border-color: var(--accent); }
   .niche-btn.active { background: rgba(0,255,136,0.08); border-color: var(--accent); }
-
   .sub-niche-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
   .sub-niche-btn { background: var(--panel2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; font-size: 12px; cursor: pointer; color: var(--text); transition: all 0.15s; font-weight: 600; }
   .sub-niche-btn:hover, .sub-niche-btn.active { border-color: var(--accent2); color: var(--accent2); }
-
   .input-group { background: var(--panel2); border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 10px; }
   input[type="text"], textarea, select { width: 100%; background: var(--panel3); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; color: var(--text); font-size: 13px; outline: none; font-family: inherit; }
   input:focus, textarea:focus, select:focus { border-color: var(--accent); }
   textarea { resize: vertical; min-height: 80px; }
-
   .batch-actions { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
   .batch-btn { background: var(--panel2); border: 1px solid var(--border); color: var(--text2); padding: 8px 14px; border-radius: 8px; font-size: 12px; cursor: pointer; font-weight: 600; }
   .batch-btn:hover, .batch-btn.active { border-color: var(--accent); color: var(--accent); }
-
   .generate-btn { width: 100%; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #000; border: none; border-radius: 12px; padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; letter-spacing: 0.5px; transition: all 0.2s; }
   .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,255,136,0.25); }
   .generate-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
@@ -148,16 +102,12 @@
   .copy-btn, .action-btn { background: var(--panel3); border: 1px solid var(--border); color: var(--text2); padding: 5px 12px; border-radius: 6px; font-size: 11px; cursor: pointer; font-weight: 600; }
   .copy-btn:hover, .action-btn:hover { border-color: var(--accent); color: var(--accent); }
   .copy-btn.copied { background: var(--accent); color: #000; border-color: var(--accent); }
-
   .script-box { background: var(--panel3); border-radius: 8px; padding: 12px; font-size: 13px; line-height: 1.7; white-space: pre-wrap; }
   .hook-text { color: var(--accent3); font-weight: 700; }
   .cta-text { color: var(--accent2); font-weight: 600; }
   .body-text { color: var(--text); }
-  .fact-highlight { color: var(--accent4); font-weight: 600; }
-
   .hashtag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
   .hashtag { background: var(--panel3); border: 1px solid var(--border); padding: 4px 10px; border-radius: 16px; font-size: 11px; color: var(--accent2); }
-
   .tips-list { list-style: none; }
   .tips-list li { padding: 5px 0; padding-left: 18px; position: relative; font-size: 12px; color: var(--text2); }
   .tips-list li::before { content: '>'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
@@ -166,10 +116,11 @@
   .voice-btn { background: var(--panel2); border: 1px solid var(--border); color: var(--text); padding: 10px 16px; border-radius: 8px; font-size: 12px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 6px; }
   .voice-btn:hover { border-color: var(--accent2); color: var(--accent2); }
   .voice-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
+  .voice-btn.record-btn { background: linear-gradient(135deg, #ff3366, #ff0044); color: #fff; border: none; }
+  .voice-btn.record-btn:hover { box-shadow: 0 0 20px rgba(255,51,102,0.4); }
+  .voice-btn.stop-btn { background: linear-gradient(135deg, #333, #555); color: #fff; border: none; }
   .voice-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
   .setting-label { font-size: 10px; color: var(--text2); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
-
   .audio-visualizer { height: 60px; background: var(--panel3); border-radius: 8px; display: flex; align-items: flex-end; justify-content: center; gap: 3px; padding: 10px; margin-bottom: 12px; }
   .viz-bar { width: 4px; background: var(--accent); border-radius: 2px; transition: height 0.1s; min-height: 4px; }
   .viz-bar.playing { animation: vizPulse 0.5s infinite alternate; }
@@ -179,6 +130,14 @@
   .thumb-canvas { max-width: 100%; border-radius: 8px; border: 1px solid var(--border); }
   .thumb-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
 
+  .video-canvas-wrap { background: var(--panel3); border-radius: 12px; padding: 12px; text-align: center; margin-bottom: 12px; position: relative; }
+  .video-canvas { max-width: 100%; max-height: 55vh; border-radius: 8px; border: 1px solid var(--border); }
+  .rec-indicator { position: absolute; top: 20px; right: 20px; background: #ff0000; color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; display: none; animation: blink 1s infinite; }
+  .fullscreen-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #000; z-index: 9999; display: none; align-items: center; justify-content: center; }
+  .fullscreen-overlay.active { display: flex; }
+  .fullscreen-overlay canvas { max-height: 100vh; max-width: 100vw; }
+  .fs-close { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.2); color: #fff; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; z-index: 10000; }
+
   .chat-panel { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; height: 400px; }
   .chat-header { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text2); margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
   .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; padding-right: 4px; }
@@ -187,11 +146,9 @@
   .chat-message.agent { background: var(--panel2); border: 1px solid var(--border); align-self: flex-start; }
   .chat-message .msg-name { font-size: 10px; font-weight: 700; margin-bottom: 2px; }
   .chat-message.agent .msg-name { color: var(--accent); }
-
   .chat-input-row { display: flex; gap: 8px; }
   .chat-input-row input { flex: 1; }
   .chat-send { background: var(--accent); color: #000; border: none; border-radius: 8px; padding: 0 16px; font-size: 16px; cursor: pointer; font-weight: 700; }
-
   .reward-bar { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
   .reward-btn { background: var(--panel2); border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; font-size: 16px; cursor: pointer; transition: all 0.2s; }
   .reward-btn:hover { transform: scale(1.1); border-color: var(--accent4); }
@@ -209,11 +166,9 @@
   .status-pending { background: rgba(255,170,0,0.15); color: var(--accent4); }
   .status-ready { background: rgba(0,255,136,0.15); color: var(--accent); }
   .status-rejected { background: rgba(255,51,102,0.15); color: var(--accent3); }
-
   .asset-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
   .asset-item { background: var(--panel3); border-radius: 8px; padding: 10px; font-size: 11px; text-align: center; }
   .asset-item img { width: 100%; border-radius: 6px; margin-bottom: 6px; }
-
   .download-btn { width: 100%; background: var(--accent); color: #000; border: none; border-radius: 10px; padding: 12px; font-size: 13px; font-weight: 700; cursor: pointer; margin-top: 8px; }
 
   .loading { text-align: center; padding: 30px; display: none; }
@@ -228,12 +183,7 @@
   .modal-close { float: right; background: none; border: none; color: var(--text2); font-size: 20px; cursor: pointer; }
 
   .footer { text-align: center; padding: 24px 0; color: var(--text3); font-size: 11px; }
-
-  @media (max-width: 480px) {
-    h1 { font-size: 22px; }
-    .agent-avatar { font-size: 32px; }
-    .chat-panel { height: 350px; }
-  }
+  @media(max-width:480px) { h1 { font-size: 22px; } .agent-avatar { font-size: 32px; } .chat-panel { height: 350px; } }
 </style>
 </head>
 <body>
@@ -274,13 +224,13 @@
         <div class="tab" data-tab="voice">&#127908; Voice</div>
         <div class="tab" data-tab="visuals">&#127912; Visuals</div>
         <div class="tab" data-tab="thumbnails">&#127912; Thumbnails</div>
+        <div class="tab" data-tab="video">&#127916; Video Studio</div>
         <div class="tab" data-tab="projects">&#128230; Projects</div>
       </div>
 
       <div class="tab-panel active" id="tab-scripts">
         <div class="section-label">1. Pick Your Blend</div>
         <div class="niche-grid"><button class="niche-btn active" data-niche="mystery-learning">&#128302; Mystery Learning — Unexplained facts that educate & mystify</button></div>
-
         <div class="section-label">2. Sub-Topic</div>
         <div class="sub-niche-row" id="subNicheRow">
           <button class="sub-niche-btn active" data-sub="unexplained-science">Unexplained Science</button>
@@ -290,24 +240,16 @@
           <button class="sub-niche-btn" data-sub="nature-weird">Nature Weird</button>
           <button class="sub-niche-btn" data-sub="ancient-mysteries">Ancient Mysteries</button>
         </div>
-
         <div class="section-label">3. Topic (Optional)</div>
         <div class="input-group"><input type="text" id="topicInput" placeholder="e.g. why do we dream"></div>
-
         <div class="section-label">4. How Many Scripts?</div>
         <div class="batch-actions">
           <button class="batch-btn active" data-count="1">1 Script</button>
           <button class="batch-btn" data-count="3">3 Scripts</button>
           <button class="batch-btn" data-count="7">7 for Week</button>
         </div>
-
         <button class="generate-btn" id="generateBtn" onclick="startPipeline()">&#9889; START PRODUCTION PIPELINE</button>
-
-        <div class="loading" id="loading">
-          <div class="spinner"></div>
-          <div style="color: var(--text2); font-size: 13px;">Scout is researching...</div>
-        </div>
-
+        <div class="loading" id="loading"><div class="spinner"></div><div style="color: var(--text2); font-size: 13px;">Scout is researching...</div></div>
         <div id="results"></div>
       </div>
 
@@ -377,6 +319,58 @@
         </ul>
       </div>
 
+      <div class="tab-panel" id="tab-video">
+        <div class="section-label">&#127916; Video Studio — Auto-Generate Shorts</div>
+        <p style="font-size:12px;color:var(--text2);margin-bottom:12px">
+          Select a script and the studio will animate it with voice + visuals + music.
+          Works best on desktop, but mobile users can use "Fullscreen Preview" + screen recorder.
+        </p>
+
+        <div class="section-label">1. Select Script to Animate</div>
+        <div class="input-group"><select id="videoScriptSelect"><option value="">-- Generate scripts first in the Scripts tab --</option></select></div>
+
+        <div class="section-label">2. Visual Style</div>
+        <div class="thumb-options">
+          <div><div class="setting-label">Theme</div><select id="videoTheme"><option value="cosmic">&#127756; Cosmic Dark</option><option value="neon">&#9889; Neon Cyber</option><option value="minimal">&#9729; Minimal Clean</option><option value="mystery">&#128302; Mystery Red</option></select></div>
+          <div><div class="setting-label">Text Effect</div><select id="textAnim"><option value="typewriter">Typewriter</option><option value="fade">Fade In</option><option value="slide">Slide Up</option><option value="glitch">Glitch</option></select></div>
+          <div><div class="setting-label">Duration</div><select id="videoDuration"><option value="30">30 sec</option><option value="45" selected>45 sec</option><option value="60">60 sec</option></select></div>
+          <div><div class="setting-label">Music</div><select id="videoMusic"><option value="ambient">Ambient Drone</option><option value="pulse">Mystery Pulse</option><option value="none">No Music</option></select></div>
+        </div>
+
+        <div class="section-label">3. Controls</div>
+        <div class="voice-controls">
+          <button class="voice-btn record-btn" id="recordVideoBtn" onclick="recordVideo()">&#128308; RECORD VIDEO</button>
+          <button class="voice-btn stop-btn" onclick="stopRecording()">&#9209; STOP</button>
+          <button class="voice-btn" onclick="playFullscreenPreview()">&#9974; FULLSCREEN PREVIEW</button>
+        </div>
+        <div class="progress-container" style="margin:12px 0"><div class="progress-bar" id="videoRecordProgress" style="width:0%"></div></div>
+        <div id="videoRecordStatus" style="font-size:12px;color:var(--text2);text-align:center;margin-bottom:12px">Ready</div>
+
+        <div class="video-canvas-wrap">
+          <canvas id="videoCanvas" width="1080" height="1920" class="video-canvas"></canvas>
+          <div class="rec-indicator" id="recIndicator">&#9679; REC</div>
+        </div>
+
+        <div class="section-label">Mobile Method (Most Reliable)</div>
+        <div style="background:var(--panel2);border-radius:10px;padding:12px;margin-bottom:12px;font-size:12px;color:var(--text2);line-height:1.6">
+          <strong style="color:var(--accent)">iPhone/Android Screen Record:</strong><br>
+          1. Tap "FULLSCREEN PREVIEW"<br>
+          2. Start your phone's screen recorder (Control Center / Quick Settings)<br>
+          3. The video auto-plays with voice + animations<br>
+          4. Stop recording when done — the file saves to Photos<br>
+          5. Upload directly to YouTube Shorts!
+        </div>
+
+        <div class="section-label">Desktop Method (Best Quality)</div>
+        <div style="background:var(--panel2);border-radius:10px;padding:12px;margin-bottom:12px;font-size:12px;color:var(--text2);line-height:1.6">
+          <strong style="color:var(--accent)">Auto-Record:</strong><br>
+          1. Tap "RECORD VIDEO" — browser captures canvas as .webm<br>
+          2. Voice narrates automatically<br>
+          3. Download the finished file<br>
+          4. Convert to MP4 if needed (free at cloudconvert.com)
+        </div>
+      </div>
+
       <div class="tab-panel" id="tab-projects">
         <div class="section-label">Active Projects</div>
         <div id="projectsList"></div>
@@ -413,8 +407,13 @@
 
   <div class="footer">
     Mystery keeps them watching. Facts make them save. Your agents never sleep.<br>
-    Shorts Factory Workshop v5 — Agent Studio
+    Shorts Factory Workshop v6 — Agent Studio with Video
   </div>
+</div>
+
+<div class="fullscreen-overlay" id="fullscreenOverlay">
+  <button class="fs-close" onclick="closeFullscreen()">&times;</button>
+  <canvas id="fsCanvas" width="1080" height="1920"></canvas>
 </div>
 
 <div class="modal-overlay" id="agentModal">
@@ -427,749 +426,793 @@
 
 <script>
 
-// ==================== SCRIPT DATABASE ====================
 const scriptsDB = {"unexplained-science": [{"hook": "Scientists still don't know why we need to sleep. And the theories are terrifying.", "body": "We spend a third of our lives doing it.\n\nBut nobody knows why.\n\nTheory 1: The brain cleans itself \u2014 flushing toxins.\n\nTheory 2: Memories get filed and organized.\n\nTheory 3: Sleep evolved to keep us still during dangerous night hours.\n\nBut here's the creepy part:\n\nGo without sleep for 11 days and you die.\n\nWe don't know why that happens either.", "cta": "Your brain is doing something it won't explain. Follow for more.", "hashtags": "#science #mystery #sleep #brain #facts #didyouknow #learning #weird", "tips": ["Use brain scan/ neuron animations", "Show clock counting sleep hours", "Build tension with 'terrifying'", "End on unanswered question"]}, {"hook": "Gravity is the weakest force in the universe. Yet it controls everything.", "body": "A tiny magnet can lift a paperclip off the table.\n\nDefeating the gravity of the entire Earth.\n\nGravity is 10^40 times weaker than electromagnetism.\n\nA 1 with 40 zeros after it.\n\nBut it stretches across galaxies.\n\nBends time.\n\nCreates black holes.\n\nThe weakest thing in existence...\n\nAnd it rules everything.", "cta": "The universe loves irony.", "hashtags": "#science #space #gravity #physics #facts #universe #learning #mystery", "tips": ["Show magnet vs Earth visual", "Use space/ galaxy footage", "Build the contrast slowly", "Philosophical ending = shares"]}, {"hook": "We only understand 5% of the universe. The rest is literally called 'dark.'", "body": "Dark matter: 27% of everything. We can't see it. Can't touch it. But it's there.\n\nDark energy: 68%. It's pushing the universe apart faster and faster.\n\nAnd we have no idea what either one is.\n\nThe atoms that make up you, me, Earth, stars \u2014 everything we know?\n\nThat's just 5%.\n\nWe're living in a universe we don't understand.", "cta": "Follow if you're okay with not knowing.", "hashtags": "#space #science #darkmatter #universe #facts #mystery #learning #cosmos", "tips": ["Use pie chart animation (5% vs 95%)", "Dark, cosmic visuals", "Slow, awe-filled narration", "Embrace the unknown CTA"]}, {"hook": "Your body has 37 trillion cells. And not a single one knows you exist.", "body": "Each cell is a tiny machine.\n\nDoing its job.\n\nFollowing chemical instructions.\n\nNo cell has ever seen your face.\n\nHeard your voice.\n\nFelt your emotions.\n\nYet together, they create consciousness.\n\nThe greatest mystery in science:\n\nHow does a pile of unconscious cells...\n\nBecome a person who wonders about themselves?", "cta": "You're a miracle that science can't explain.", "hashtags": "#science #consciousness #brain #philosophy #facts #mystery #learning #mind", "tips": ["Use cell/ DNA microscopy footage", "Build from micro to macro", "Philosophical pivot at end", "Deep questions = comments"]}, {"hook": "Time might not exist at all. And some physicists can prove it.", "body": "In quantum mechanics, time doesn't appear in the equations.\n\nAt the smallest level, particles don't experience time.\n\nThey just... are.\n\nEinstein showed time slows near mass.\n\nStops at light speed.\n\nGets weird near black holes.\n\nWhat if time isn't real?\n\nWhat if it's just how our brains organize change?", "cta": "What if everything you remember... hasn't happened yet?", "hashtags": "#physics #time #science #quantum #mystery #facts #learning #universe", "tips": ["Use clock melting/ distortion visuals", "Reference Salvador Dali for cultural hook", "Build to mind-bending question", "Rewatch potential = high"]}], "bizarre-history": [{"hook": "In 1518, a woman started dancing in the street. She didn't stop for 6 days. Then 400 people joined her.", "body": "The Dancing Plague of Strasbourg.\n\nNo music.\n\nNo rest.\n\nPeople danced until their feet bled.\n\nUntil they collapsed.\n\nSome died of heart attacks.\n\nExhaustion.\n\nStroke.\n\nThe city hired musicians and built a stage \u2014 thinking they could dance it out.\n\nIt made it worse.\n\nWe still don't know what caused it.", "cta": "History is full of things we can't explain.", "hashtags": "#history #mystery #facts #dancingplague #strange #didyouknow #learning #weird", "tips": ["Use old European paintings/ illustrations", "Show dancing figures in sequence", "Build absurdity with each fact", "Unanswered ending = comments"]}, {"hook": "The Roman Emperor Caligula made his horse a senator. But that wasn't even his weirdest move.", "body": "He declared war on the sea.\n\nHad soldiers stab the water.\n\nCollected seashells as 'spoils of war.'\n\nHe built a bridge of ships across a bay...\n\nJust to ride his horse across it.\n\nTo prove a critic wrong.\n\nSome historians think he was insane.\n\nOthers think he was trolling the empire.\n\nWe'll never know.", "cta": "Ancient Rome was a reality show.", "hashtags": "#history #rome #caligula #facts #mystery #ancient #didyouknow #weird", "tips": ["Use Roman statue/ coin imagery", "Comedic timing for absurd facts", "Trolling angle = relatable", "History that feels modern"]}, {"hook": "A library in Egypt burned down 2,000 years ago. We lost the cure for aging.", "body": "The Library of Alexandria.\n\nThe greatest collection of knowledge ever assembled.\n\nHundreds of thousands of scrolls.\n\nWorks by Aristotle, Archimedes, Euclid.\n\nMedical texts.\n\nAstronomical charts.\n\nLost forever.\n\nSome historians believe we set back human progress by 1,000 years.\n\nIn one fire.", "cta": "Imagine what we don't know because of what we lost.", "hashtags": "#history #alexandria #library #facts #mystery #ancient #learning #science", "tips": ["Use library/ scroll animations", "Show burning visual (tasteful)", "Build sense of loss", "Philosophical ending = shares"]}, {"hook": "In 1957, a doctor invented a surgery that turned violent criminals into calm zombies. It won a Nobel Prize.", "body": "The lobotomy.\n\nAn ice pick through the eye socket.\n\nInto the brain.\n\nWiggle it around.\n\nDestroy the prefrontal cortex.\n\nThe patient becomes docile.\n\nEmpty.\n\nA shell.\n\nIt was performed on 40,000 people.\n\nIncluding a 4-year-old.\n\nIt took 20 years for medicine to admit it was barbaric.", "cta": "Science gets things wrong. Badly wrong.", "hashtags": "#history #medicine #lobotomy #facts #mystery #science #dark #learning", "tips": ["Use old medical footage/ photos", "Build horror with each fact", "Ice pick visual = visceral", "Dark history = high retention"]}], "space-mysteries": [{"hook": "There's a star that flickers so strangely that scientists seriously considered aliens.", "body": "Tabby's Star.\n\nIt dims by 22% at random intervals.\n\nNo natural explanation fits.\n\nOne theory: a Dyson Sphere.\n\nA giant alien structure harvesting energy.\n\nAnother theory: a swarm of comets.\n\nBut 22%?\n\nThat would require 648,000 giant comets.\n\nAll aligned perfectly.\n\nWe still don't know.", "cta": "Maybe we're not alone. Maybe we are. Either way, it's terrifying.", "hashtags": "#space #aliens #mystery #stars #science #facts #universe #learning #dysonsphere", "tips": ["Use star flickering animation", "Show Dyson Sphere concept art", "Alien angle = clickbait that delivers", "Dual ending = both audiences satisfied"]}, {"hook": "Venus spins backwards. And a single day there is longer than its entire year.", "body": "Venus rotates so slowly...\n\nOne sunrise to the next takes 243 Earth days.\n\nBut it orbits the Sun in just 225 days.\n\nSo a day is longer than a year.\n\nAlso, the Sun rises in the west.\n\nAnd sets in the east.\n\nBecause it spins backwards.\n\nScientists think a massive collision flipped it.\n\nBut they're not sure.\n\nVenus is just... wrong.", "cta": "The solar system's weird cousin.", "hashtags": "#space #venus #planets #science #facts #mystery #learning #universe", "tips": ["Use planet rotation animation", "Show day vs year comparison", "'Wrong' = memorable framing", "Quick facts = high share"]}, {"hook": "We found a planet where it rains glass. Sideways.", "body": "HD 189733b.\n\n1,000 light years away.\n\nWinds of 5,400 mph.\n\nSeven times the speed of sound.\n\nTemperature: 1,800 degrees Fahrenheit.\n\nAnd the rain?\n\nMolten glass.\n\nBlown sideways by the wind.\n\nThe most beautiful death trap in the universe.", "cta": "Earth is boring. And that's a good thing.", "hashtags": "#space #planets #science #facts #mystery #universe #learning #exoplanet", "tips": ["Use storm/ rain visualizations", "Show speed comparisons (sound, jet)", "Beautiful but deadly = compelling", "Appreciate Earth CTA = relatable"]}], "human-body": [{"hook": "You have a second brain in your gut. And scientists are just figuring out what it does.", "body": "The enteric nervous system.\n\n100 million neurons.\n\nMore than your spinal cord.\n\nIt controls digestion independently.\n\nBut here's the weird part:\n\n90% of serotonin \u2014 your happy chemical \u2014 is made there.\n\nNot in your brain.\n\nIn your gut.\n\nYour stomach might be controlling your mood.\n\nAnd we barely understand how.", "cta": "Trust your gut. It knows more than you think.", "hashtags": "#science #health #brain #gut #facts #mystery #learning #body #mind", "tips": ["Use gut/ brain connection animation", "Show serotonin molecule visual", "Relatable 'gut feeling' hook", "Practical takeaway at end"]}, {"hook": "Your fingers prune underwater for a reason. And it's not what you think.", "body": "For years, scientists thought it was just water absorption.\n\nPassive.\n\nMeaningless.\n\nThen they realized:\n\nPruney fingers are an active nervous system response.\n\nNot passive swelling.\n\nIt's evolved grip enhancement.\n\nLike tire treads.\n\nFor wet surfaces.\n\nPeople with nerve damage in their fingers?\n\nDon't prune.\n\nYour body built a tool... and hid it in plain sight.", "cta": "Evolution is sneakier than we thought.", "hashtags": "#science #body #evolution #facts #mystery #learning #health #didyouknow", "tips": ["Show pruned fingers close-up", "Use tire tread comparison visual", "Mystery -> revelation structure", "Evolution angle = educational"]}, {"hook": "You can see your own nose 24/7. Your brain just chooses to ignore it.", "body": "It's always in your peripheral vision.\n\nBoth eyes see it.\n\nBut your brain edits it out.\n\nLike Photoshop for reality.\n\nIt does this with lots of things.\n\nThe blind spot in each eye.\n\nEdited out.\n\nYour nose.\n\nEdited out.\n\nYou're not seeing reality.\n\nYou're seeing your brain's best guess at reality.", "cta": "Everything you see is a hallucination your brain agreed on.", "hashtags": "#science #brain #vision #facts #psychology #mystery #learning #mind #perception", "tips": ["Show nose in peripheral vision demo", "Use blind spot test graphic", "Philosophical pivot = high engagement", "Mind-bending fact = saves"]}], "nature-weird": [{"hook": "There's a jellyfish that ages backwards. It's technically immortal.", "body": "Turritopsis dohrnii.\n\nWhen stressed or injured...\n\nIt reverts to its polyp stage.\n\nA baby again.\n\nThen grows up.\n\nThen reverts again.\n\nOver and over.\n\nTheoretically forever.\n\nIt found the reset button on life.\n\nAnd we have no idea how.", "cta": "Nature figured out immortality. We're still working on it.", "hashtags": "#nature #science #jellyfish #immortality #facts #mystery #learning #ocean #animals", "tips": ["Use jellyfish lifecycle animation", "Show reverse aging visual", "'Reset button' = relatable metaphor", "Awe-inspiring ending"]}, {"hook": "Trees talk to each other. And we finally proved it.", "body": "Through underground fungal networks.\n\nThe 'Wood Wide Web.'\n\nMother trees send nutrients to struggling seedlings.\n\nWarn neighbors of insect attacks.\n\nEven recognize their own children.\n\nGiving them more sugar than strangers.\n\nTrees have social networks.\n\nFamily bonds.\n\nAnd memories.\n\nWe just couldn't hear them.", "cta": "The forest is more alive than you knew.", "hashtags": "#nature #trees #science #forest #facts #mystery #learning #environment #plants", "tips": ["Use forest/ root network animations", "Show nutrient flow visualization", "Emotional connection to trees", "Environmental angle = shares"]}, {"hook": "There's a fungus that controls ants like puppets. Then explodes out of their heads.", "body": "Ophiocordyceps.\n\nIt infects an ant.\n\nHijacks its nervous system.\n\nForces it to climb to a specific height on a tree.\n\nBite down on a leaf vein.\n\nAnd wait.\n\nThen a stalk erupts from its head.\n\nReleasing spores.\n\nOnto the ants below.\n\nIt's not infection.\n\nIt's mind control.\n\nAnd it's been happening for 48 million years.", "cta": "Nature invented zombies before we did.", "hashtags": "#nature #science #fungus #zombie #ants #facts #mystery #learning #horror", "tips": ["Use macro fungus/ ant footage", "Build horror with each stage", "'Mind control' = compelling language", "Nature horror = viral potential"]}], "ancient-mysteries": [{"hook": "The Great Pyramid was built with such precision that you can't slide a credit card between the stones.", "body": "2.3 million blocks.\n\nEach weighing 2.5 tons.\n\nFitted together with hairline precision.\n\nNo mortar.\n\nNo modern tools.\n\nAnd the base is level to within 2.1 centimeters.\n\nOver 13 acres.\n\nWe couldn't replicate that today.\n\nNot with our best technology.\n\n4,500 years ago, they did it by hand.", "cta": "Ancient doesn't mean primitive.", "hashtags": "#history #egypt #pyramids #ancient #facts #mystery #learning #architecture #science", "tips": ["Use pyramid construction animations", "Show credit card gap test", "Awe-building facts", "Challenge modern assumptions"]}, {"hook": "Gobekli Tepe is 11,000 years old. It predates agriculture. And we have no idea who built it.", "body": "Massive stone pillars.\n\nEach weighing 20 tons.\n\nCarved with animals.\n\nSymbols.\n\nAstrological alignments.\n\nBut here's the problem:\n\nIt was built before humans farmed.\n\nBefore we had cities.\n\nBefore writing.\n\nWho organized thousands of people?\n\nTo build a temple...\n\nBefore civilization existed?", "cta": "Everything we know about history might be wrong.", "hashtags": "#history #ancient #gobeklitepe #archaeology #facts #mystery #learning #turkey #civilization", "tips": ["Use archaeological site footage", "Show pillar carvings close-up", "Challenge historical timeline", "Controversial claim = engagement"]}, {"hook": "Stonehenge's stones came from 180 miles away. Before the wheel was invented in Britain.", "body": "Each stone weighs 25 tons.\n\nThe bluestones came from Wales.\n\n180 miles away.\n\nNo wheels.\n\nNo pulleys we know of.\n\nSomehow, they moved rocks the weight of a school bus...\n\nAcross mountains and rivers.\n\nWhy?\n\nWe don't know.\n\nHow?\n\nWe don't know that either.", "cta": "The past keeps its secrets.", "hashtags": "#history #stonehenge #ancient #mystery #facts #learning #england #archaeology #science", "tips": ["Use Stonehenge drone footage", "Show map with 180 mile distance", "School bus comparison = relatable", "Double mystery = double engagement"]}]};
 
-// ==================== AGENT SYSTEM ====================
 const agents = {
-  scout: {
-    id: 'scout', name: 'Scout', emoji: '🔍', role: 'Research Leader', color: '#00ff88',
-    status: 'idle', mood: '😊', task: 'Waiting for orders', personality: 'energetic',
-    stats: { scripts: 0, research: 0, energy: 100 },
-    messages: [
-      "I've got a MASSIVE idea for today's short!",
-      "The algorithm LOVES mystery + learning. Let's feed it.",
-      "I just found something that'll blow minds.",
-      "Team! New research just dropped. We're ahead of the curve.",
-      "Take a walk, clear your head, then let's CREATE.",
-      "Your best work comes when you're rested. Don't burn out.",
-      "I've been scanning trends... this niche is EXPLODING.",
-      "Let's make something that makes people say 'WAIT, WHAT?'"
-    ]
-  },
-  voice: {
-    id: 'voice', name: 'Voice', emoji: '🎙️', role: 'Voice Artist', color: '#00d4ff',
-    status: 'idle', mood: '😌', task: 'Ready to narrate', personality: 'calm',
-    stats: { narrations: 0, hours: 0, energy: 100 },
-    messages: [
-      "I'll make this sound like a warm blanket for the ears.",
-      "Slow, calm, mysterious. That's the vibe.",
-      "My voice is ready. Give me the script.",
-      "A soothing tone keeps retention high. Trust me.",
-      "I need some tea... then I'll record the perfect take.",
-      "Breathing exercises done. Let's create audio magic.",
-      "Every word will land like a whisper in a library.",
-      "The pause between sentences is where the mystery lives."
-    ]
-  },
-  vision: {
-    id: 'vision', name: 'Vision', emoji: '🎨', role: 'Visual Artist', color: '#aa66ff',
-    status: 'idle', mood: '🤩', task: 'Imagery ready', personality: 'creative',
-    stats: { images: 0, concepts: 0, energy: 100 },
-    messages: [
-      "I can already see the visuals for this one.",
-      "Dark cosmic backgrounds with glowing text? YES.",
-      "Let me find the perfect footage to match the mystery.",
-      "Visuals should make them STOP scrolling.",
-      "I'm going to browse some inspiration. Be right back!",
-      "Colors, motion, contrast — I'll make it hypnotic.",
-      "Every frame is a painting. Every transition, a story.",
-      "I found the PERFECT stock clip for this hook."
-    ]
-  },
-  editor: {
-    id: 'editor', name: 'Editor', emoji: '✂️', role: 'Video Editor', color: '#ffaa00',
-    status: 'idle', mood: '🧐', task: 'Standing by', personality: 'precise',
-    stats: { videos: 0, cuts: 0, energy: 100 },
-    messages: [
-      "Give me the assets and I'll weave them together.",
-      "Pacing is everything. Cut on the beat of the voice.",
-      "I'll add subtle sound design that creeps under the skin.",
-      "Transitions should be invisible. Only the story matters.",
-      "My timeline is clean, my markers are set. Let's edit.",
-      "A good edit is felt, not seen.",
-      "I'll sync the hook to the strongest visual beat.",
-      "Export settings optimized for Shorts. 9:16, 60fps."
-    ]
-  },
-  curator: {
-    id: 'curator', name: 'Curator', emoji: '👁️', role: 'QC & Publishing', color: '#ff3366',
-    status: 'idle', mood: '😐', task: 'Review queue empty', personality: 'critical',
-    stats: { approved: 0, rejected: 0, energy: 100 },
-    messages: [
-      "I'll be the one who says if it's good enough.",
-      "The first 3 seconds decide everything. Make them count.",
-      "This thumbnail needs more punch. Back to Vision.",
-      "Approved. This one will perform.",
-      "Rejected. The hook is weak. Scout, do better.",
-      "I'm watching retention graphs in my sleep.",
-      "Three thumbnails. One will be perfect. I choose.",
-      "Quality over quantity. Always."
-    ]
-  }
+  scout: { id: 'scout', name: 'Scout', emoji: '🔍', role: 'Research Leader', color: '#00ff88', status: 'idle', mood: '😊', task: 'Waiting for orders', personality: 'energetic', stats: { scripts: 0, research: 0, energy: 100 }, messages: ["I've got a MASSIVE idea for today's short!", "The algorithm LOVES mystery + learning. Let's feed it.", "I just found something that'll blow minds.", "Team! New research just dropped. We're ahead of the curve.", "Take a walk, clear your head, then let's CREATE.", "Your best work comes when you're rested. Don't burn out.", "I've been scanning trends... this niche is EXPLODING.", "Let's make something that makes people say 'WAIT, WHAT?'"] },
+  voice: { id: 'voice', name: 'Voice', emoji: '🎙️', role: 'Voice Artist', color: '#00d4ff', status: 'idle', mood: '😌', task: 'Ready to narrate', personality: 'calm', stats: { narrations: 0, hours: 0, energy: 100 }, messages: ["I'll make this sound like a warm blanket for the ears.", "Slow, calm, mysterious. That's the vibe.", "My voice is ready. Give me the script.", "A soothing tone keeps retention high. Trust me.", "I need some tea... then I'll record the perfect take.", "Breathing exercises done. Let's create audio magic.", "Every word will land like a whisper in a library.", "The pause between sentences is where the mystery lives."] },
+  vision: { id: 'vision', name: 'Vision', emoji: '🎨', role: 'Visual Artist', color: '#aa66ff', status: 'idle', mood: '🤩', task: 'Imagery ready', personality: 'creative', stats: { images: 0, concepts: 0, energy: 100 }, messages: ["I can already see the visuals for this one.", "Dark cosmic backgrounds with glowing text? YES.", "Let me find the perfect footage to match the mystery.", "Visuals should make them STOP scrolling.", "I'm going to browse some inspiration. Be right back!", "Colors, motion, contrast — I'll make it hypnotic.", "Every frame is a painting. Every transition, a story.", "I found the PERFECT stock clip for this hook."] },
+  editor: { id: 'editor', name: 'Editor', emoji: '✂️', role: 'Video Editor', color: '#ffaa00', status: 'idle', mood: '🧐', task: 'Standing by', personality: 'precise', stats: { videos: 0, cuts: 0, energy: 100 }, messages: ["Give me the assets and I'll weave them together.", "Pacing is everything. Cut on the beat of the voice.", "I'll add subtle sound design that creeps under the skin.", "Transitions should be invisible. Only the story matters.", "My timeline is clean, my markers are set. Let's edit.", "A good edit is felt, not seen.", "I'll sync the hook to the strongest visual beat.", "Export settings optimized for Shorts. 9:16, 60fps."] },
+  curator: { id: 'curator', name: 'Curator', emoji: '👁️', role: 'QC & Publishing', color: '#ff3366', status: 'idle', mood: '😐', task: 'Review queue empty', personality: 'critical', stats: { approved: 0, rejected: 0, energy: 100 }, messages: ["I'll be the one who says if it's good enough.", "The first 3 seconds decide everything. Make them count.", "This thumbnail needs more punch. Back to Vision.", "Approved. This one will perform.", "Rejected. The hook is weak. Scout, do better.", "I'm watching retention graphs in my sleep.", "Three thumbnails. One will be perfect. I choose.", "Quality over quantity. Always."] }
 };
 
-let currentAgent = 'all';
-let projects = [];
-let currentScripts = [];
-let pipelineRunning = false;
-let currentStage = -1;
-let selectedSub = 'unexplained-science';
-let batchCount = 1;
+let currentAgent = 'all', projects = [], currentScripts = [], pipelineRunning = false, currentStage = -1;
+let selectedSub = 'unexplained-science', batchCount = 1;
 
-// ==================== INIT ====================
 document.addEventListener('DOMContentLoaded', () => {
-  renderAgents();
-  initTabs();
-  initChat();
-  initVoices();
-  generateThumbnail();
-  startAgentLoop();
+  renderAgents(); initTabs(); initChat(); initVoices(); generateThumbnail(); startAgentLoop();
   logActivity('system', 'Workshop initialized. All agents online.');
-
-  // Sub-niche selection
   document.querySelectorAll('.sub-niche-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.sub-niche-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      selectedSub = btn.dataset.sub;
-    });
+    btn.addEventListener('click', () => { document.querySelectorAll('.sub-niche-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); selectedSub = btn.dataset.sub; });
   });
-
-  // Batch selection
   document.querySelectorAll('.batch-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.batch-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      batchCount = parseInt(btn.dataset.count);
-    });
+    btn.addEventListener('click', () => { document.querySelectorAll('.batch-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); batchCount = parseInt(btn.dataset.count); });
   });
-
-  // Thumbnail inputs
-  ['thumbTitle1', 'thumbTitle2', 'thumbColor', 'thumbEmoji'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('input', generateThumbnail);
-  });
-
-  // Chat enter key
-  document.getElementById('chatInput').addEventListener('keypress', e => {
-    if (e.key === 'Enter') sendChat();
-  });
+  ['thumbTitle1','thumbTitle2','thumbColor','thumbEmoji'].forEach(id => { const el = document.getElementById(id); if(el) el.addEventListener('input', generateThumbnail); });
+  document.getElementById('chatInput').addEventListener('keypress', e => { if(e.key==='Enter') sendChat(); });
 });
 
-// ==================== AGENT RENDERING ====================
 function renderAgents() {
-  const grid = document.getElementById('agentGrid');
-  grid.innerHTML = '';
+  const grid = document.getElementById('agentGrid'); grid.innerHTML = '';
   Object.values(agents).forEach(agent => {
     const card = document.createElement('div');
-    card.className = `agent-card ${agent.status === 'working' ? 'active-agent' : ''} ${agent.status === 'resting' ? 'resting' : ''} ${agent.status === 'collaborating' ? 'collaborating' : ''}`;
+    card.className = 'agent-card ' + (agent.status==='working'?'active-agent ':'') + (agent.status==='resting'?'resting ':'') + (agent.status==='collaborating'?'collaborating':'');
     card.onclick = () => openAgentModal(agent.id);
-    let statusClass = 'status-idle';
-    if (agent.status === 'working') statusClass = 'status-working';
-    if (agent.status === 'resting') statusClass = 'status-resting';
-    if (agent.status === 'collaborating') statusClass = 'status-collab';
-    card.innerHTML = `
-      ${agent.status === 'working' ? '<div class="speech-bubble">On it!</div>' : ''}
-      <span class="agent-avatar">${agent.emoji}</span>
-      <span class="agent-name" style="color:${agent.color}">${agent.name}</span>
-      <span class="agent-role">${agent.role}</span>
-      <div class="agent-status ${statusClass}"><span class="status-dot"></span><span>${agent.status.toUpperCase()}</span></div>
-      <div class="agent-mood">${agent.mood}</div>
-      <div class="agent-task">${agent.task}</div>
-    `;
+    let sc = 'status-idle'; if(agent.status==='working')sc='status-working'; if(agent.status==='resting')sc='status-resting'; if(agent.status==='collaborating')sc='status-collab';
+    card.innerHTML = (agent.status==='working'?'<div class="speech-bubble">On it!</div>':'') + '<span class="agent-avatar">'+agent.emoji+'</span><span class="agent-name" style="color:'+agent.color+'">'+agent.name+'</span><span class="agent-role">'+agent.role+'</span><div class="agent-status '+sc+'"><span class="status-dot"></span><span>'+agent.status.toUpperCase()+'</span></div><div class="agent-mood">'+agent.mood+'</div><div class="agent-task">'+agent.task+'</div>';
     grid.appendChild(card);
   });
 }
+function updateAgent(id, updates) { Object.assign(agents[id], updates); renderAgents(); }
 
-function updateAgent(id, updates) {
-  Object.assign(agents[id], updates);
-  renderAgents();
-}
-
-// ==================== AGENT LOOP ====================
 function startAgentLoop() {
   setInterval(() => {
     Object.values(agents).forEach(agent => {
-      const moods = ['😊', '😌', '🤩', '🧐', '😐', '💪', '✨', '🎯'];
-      if (Math.random() < 0.1) agent.mood = moods[Math.floor(Math.random() * moods.length)];
-      if (agent.status === 'working' && Math.random() < 0.05) {
-        agent.stats.energy = Math.max(0, agent.stats.energy - 5);
-        if (agent.stats.energy < 30) {
-          agent.status = 'resting';
-          agent.task = 'Taking a break';
-          logActivity(agent.id, `${agent.name} is taking a break to recharge.`);
-        }
+      const moods = ['😊','😌','🤩','🧐','😐','💪','✨','🎯'];
+      if(Math.random()<0.1) agent.mood = moods[Math.floor(Math.random()*moods.length)];
+      if(agent.status==='working' && Math.random()<0.05) {
+        agent.stats.energy = Math.max(0, agent.stats.energy-5);
+        if(agent.stats.energy<30){ agent.status='resting'; agent.task='Taking a break'; logActivity(agent.id, agent.name+' is taking a break to recharge.'); }
       }
-      if (agent.status === 'resting' && Math.random() < 0.1) {
-        agent.stats.energy = Math.min(100, agent.stats.energy + 15);
-        if (agent.stats.energy > 80) {
-          agent.status = 'idle';
-          agent.task = 'Ready to work';
-          logActivity(agent.id, `${agent.name} is back and energized!`);
-        }
+      if(agent.status==='resting' && Math.random()<0.1) {
+        agent.stats.energy = Math.min(100, agent.stats.energy+15);
+        if(agent.stats.energy>80){ agent.status='idle'; agent.task='Ready to work'; logActivity(agent.id, agent.name+' is back and energized!'); }
       }
-      if (Math.random() < 0.02 && agent.status !== 'working') {
-        const msg = agent.messages[Math.floor(Math.random() * agent.messages.length)];
-        addChatMessage(agent.id, msg);
-      }
+      if(Math.random()<0.02 && agent.status!=='working') { addChatMessage(agent.id, agent.messages[Math.floor(Math.random()*agent.messages.length)]); }
     });
     renderAgents();
   }, 3000);
 }
 
-// ==================== TABS ====================
 function initTabs() {
   document.querySelectorAll('.tab').forEach(tab => {
     tab.addEventListener('click', () => {
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-      tab.classList.add('active');
-      document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+      tab.classList.add('active'); document.getElementById('tab-'+tab.dataset.tab).classList.add('active');
     });
   });
 }
 
-// ==================== PIPELINE ====================
 async function startPipeline() {
-  if (pipelineRunning) return;
-  pipelineRunning = true;
-  currentStage = 0;
-  const btn = document.getElementById('generateBtn');
-  const loading = document.getElementById('loading');
-  const results = document.getElementById('results');
-  const topic = document.getElementById('topicInput').value.trim();
-
-  btn.disabled = true;
-  btn.textContent = 'PRODUCTION IN PROGRESS...';
-  results.innerHTML = '';
-
-  updatePipeline(0);
-  updateAgent('scout', { status: 'working', task: 'Researching scripts', mood: '💪' });
-  logActivity('scout', 'Scout is researching the best angles...');
-  loading.classList.add('visible');
+  if(pipelineRunning) return; pipelineRunning = true; currentStage = 0;
+  const btn = document.getElementById('generateBtn'), loading = document.getElementById('loading'), results = document.getElementById('results'), topic = document.getElementById('topicInput').value.trim();
+  btn.disabled = true; btn.textContent = 'PRODUCTION IN PROGRESS...'; results.innerHTML = '';
+  updatePipeline(0); updateAgent('scout',{status:'working',task:'Researching scripts',mood:'💪'});
+  logActivity('scout','Scout is researching the best angles...'); loading.classList.add('visible');
   loading.querySelector('div:last-child').textContent = 'Scout is analyzing mystery databases...';
-
   await sleep(1500);
-
-  const nicheScripts = scriptsDB[selectedSub] || scriptsDB['unexplained-science'];
-  currentScripts = [];
-  for (let i = 0; i < batchCount; i++) {
-    const script = JSON.parse(JSON.stringify(nicheScripts[Math.floor(Math.random() * nicheScripts.length)]));
-    if (topic && i === 0) {
-      script.hook = `Scientists have been trying to understand ${topic} for centuries. They're still confused.`;
-      const bodyParts = script.body.split('\n\n').slice(2, 5).join('\n\n');
-      script.body = `It sounds simple.\n\nBut the deeper you look...\n\n${bodyParts}\n\nAnd that's just what we know.\n\nThe rest is still a mystery.`;
-    }
+  const nicheScripts = scriptsDB[selectedSub] || scriptsDB['unexplained-science']; currentScripts = [];
+  for(let i=0;i<batchCount;i++){
+    const script = JSON.parse(JSON.stringify(nicheScripts[Math.floor(Math.random()*nicheScripts.length)]));
+    if(topic && i===0){ script.hook = "Scientists have been trying to understand "+topic+" for centuries. They're still confused."; const parts = script.body.split('\n\n').slice(2,5).join('\n\n'); script.body = "It sounds simple.\n\nBut the deeper you look...\n\n"+parts+"\n\nAnd that's just what we know.\n\nThe rest is still a mystery."; }
     currentScripts.push(script);
   }
-
-  updateAgent('scout', { status: 'collaborating', task: 'Handing off to Voice', mood: '✨' });
-  updateAgent('voice', { status: 'working', task: 'Preparing narration', mood: '🎙️' });
-  logActivity('scout', `Scout found ${batchCount} script(s). Passing to Voice.`);
-
-  await sleep(1200);
-  updatePipeline(1);
-  loading.querySelector('div:last-child').textContent = 'Voice is warming up the vocal cords...';
-
+  updateAgent('scout',{status:'collaborating',task:'Handing off to Voice',mood:'✨'}); updateAgent('voice',{status:'working',task:'Preparing narration',mood:'🎙️'}); logActivity('scout','Scout found '+batchCount+' script(s). Passing to Voice.');
+  await sleep(1200); updatePipeline(1); loading.querySelector('div:last-child').textContent = 'Voice is warming up the vocal cords...';
+  await sleep(1500); updateAgent('voice',{status:'collaborating',task:'Sending to Vision',mood:'😌'}); updateAgent('vision',{status:'working',task:'Finding visuals',mood:'🎨'}); logActivity('voice','Voice recorded soothing narration. Sending to Vision.');
+  await sleep(1200); updatePipeline(2); loading.querySelector('div:last-child').textContent = 'Vision is searching stock footage...';
+  await sleep(1500); updateAgent('vision',{status:'collaborating',task:'Sending to Editor',mood:'✨'}); updateAgent('editor',{status:'working',task:'Compiling video',mood:'✂️'}); logActivity('vision','Vision found perfect imagery. Editor is cutting now.');
+  await sleep(1200); updatePipeline(3); loading.querySelector('div:last-child').textContent = 'Editor is syncing audio and visuals...';
+  await sleep(1500); updateAgent('editor',{status:'collaborating',task:'Sending to Curator',mood:'🎯'}); updateAgent('curator',{status:'working',task:'Reviewing final cut',mood:'👁️'}); logActivity('editor','Editor compiled the video. Curator is reviewing...');
+  await sleep(1200); updatePipeline(4); loading.querySelector('div:last-child').textContent = 'Curator is reviewing quality...';
   await sleep(1500);
-  updateAgent('voice', { status: 'collaborating', task: 'Sending to Vision', mood: '😌' });
-  updateAgent('vision', { status: 'working', task: 'Finding visuals', mood: '🎨' });
-  logActivity('voice', 'Voice recorded soothing narration. Sending to Vision.');
-
-  await sleep(1200);
-  updatePipeline(2);
-  loading.querySelector('div:last-child').textContent = 'Vision is searching stock footage...';
-
-  await sleep(1500);
-  updateAgent('vision', { status: 'collaborating', task: 'Sending to Editor', mood: '✨' });
-  updateAgent('editor', { status: 'working', task: 'Compiling video', mood: '✂️' });
-  logActivity('vision', 'Vision found perfect imagery. Editor is cutting now.');
-
-  await sleep(1200);
-  updatePipeline(3);
-  loading.querySelector('div:last-child').textContent = 'Editor is syncing audio and visuals...';
-
-  await sleep(1500);
-  updateAgent('editor', { status: 'collaborating', task: 'Sending to Curator', mood: '🎯' });
-  updateAgent('curator', { status: 'working', task: 'Reviewing final cut', mood: '👁️' });
-  logActivity('editor', 'Editor compiled the video. Curator is reviewing...');
-
-  await sleep(1200);
-  updatePipeline(4);
-  loading.querySelector('div:last-child').textContent = 'Curator is reviewing quality...';
-
-  await sleep(1500);
-
-  loading.classList.remove('visible');
-  updatePipeline(5);
-
-  updateAgent('curator', { status: 'idle', task: 'Review queue empty', mood: '✅' });
-  updateAgent('editor', { status: 'idle', task: 'Standing by', mood: '🧐' });
-  updateAgent('vision', { status: 'idle', task: 'Imagery ready', mood: '🤩' });
-  updateAgent('voice', { status: 'idle', task: 'Ready to narrate', mood: '😌' });
-  updateAgent('scout', { status: 'idle', task: 'Waiting for orders', mood: '😊' });
-
-  logActivity('curator', 'APPROVED! Video package is ready for export.');
-
-  renderScriptResults(currentScripts);
-  createProject(currentScripts);
-
-  btn.disabled = false;
-  btn.textContent = '⚡ START PRODUCTION PIPELINE';
-  pipelineRunning = false;
-  currentStage = -1;
-
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelector('[data-tab="projects"]').classList.add('active');
-  document.getElementById('tab-projects').classList.add('active');
+  loading.classList.remove('visible'); updatePipeline(5);
+  updateAgent('curator',{status:'idle',task:'Review queue empty',mood:'✅'}); updateAgent('editor',{status:'idle',task:'Standing by',mood:'🧐'}); updateAgent('vision',{status:'idle',task:'Imagery ready',mood:'🤩'}); updateAgent('voice',{status:'idle',task:'Ready to narrate',mood:'😌'}); updateAgent('scout',{status:'idle',task:'Waiting for orders',mood:'😊'});
+  logActivity('curator','APPROVED! Video package is ready for export.');
+  renderScriptResults(currentScripts); createProject(currentScripts); populateVideoScripts();
+  btn.disabled = false; btn.textContent = '⚡ START PRODUCTION PIPELINE'; pipelineRunning = false; currentStage = -1;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active')); document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active')); document.querySelector('[data-tab="projects"]').classList.add('active'); document.getElementById('tab-projects').classList.add('active');
 }
 
 function updatePipeline(stage) {
-  document.querySelectorAll('.pipeline-stage').forEach((el, i) => {
-    el.classList.remove('active', 'done');
-    if (i < stage) el.classList.add('done');
-    if (i === stage) el.classList.add('active');
-  });
-  const pct = Math.min(100, (stage / 5) * 100);
-  document.getElementById('pipelineProgress').style.width = pct + '%';
-  const labels = ['SCOUTING', 'VOICE RECORDING', 'FINDING VISUALS', 'EDITING', 'QC REVIEW', 'COMPLETE'];
+  document.querySelectorAll('.pipeline-stage').forEach((el,i) => { el.classList.remove('active','done'); if(i<stage)el.classList.add('done'); if(i===stage)el.classList.add('active'); });
+  document.getElementById('pipelineProgress').style.width = Math.min(100,(stage/5)*100)+'%';
+  const labels = ['SCOUTING','VOICE RECORDING','FINDING VISUALS','EDITING','QC REVIEW','COMPLETE'];
   document.getElementById('pipelineStatus').textContent = labels[stage] || 'IDLE';
 }
+function sleep(ms){ return new Promise(r => setTimeout(r,ms)); }
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-// ==================== RENDER RESULTS ====================
 function renderScriptResults(scripts) {
-  const results = document.getElementById('results');
-  let output = '';
-  scripts.forEach((script, i) => {
-    output += `
-      <div class="result-card">
-        <div class="result-header"><span class="result-title" style="color:var(--accent3)">SCRIPT ${i + 1} — HOOK</span><button class="copy-btn" onclick="copyThis(this)">Copy</button></div>
-        <div class="script-box"><span class="hook-text">${escapeHtml(script.hook)}</span></div>
-      </div>
-      <div class="result-card">
-        <div class="result-header"><span class="result-title" style="color:var(--text)">SCRIPT ${i + 1} — BODY</span><button class="copy-btn" onclick="copyThis(this)">Copy</button></div>
-        <div class="script-box"><span class="body-text">${escapeHtml(script.body).replace(/\n/g, '<br>')}</span></div>
-      </div>
-      <div class="result-card">
-        <div class="result-header"><span class="result-title" style="color:var(--accent2)">SCRIPT ${i + 1} — CTA</span><button class="copy-btn" onclick="copyThis(this)">Copy</button></div>
-        <div class="script-box"><span class="cta-text">${escapeHtml(script.cta)}</span></div>
-      </div>
-      <div class="result-card">
-        <div class="result-header"><span class="result-title" style="color:var(--accent4)">SCRIPT ${i + 1} — CAPTION + HASHTAGS</span><button class="copy-btn" onclick="copyThis(this)">Copy</button></div>
-        <div class="script-box" style="font-size:12px">
-          ${escapeHtml(script.hook)}<br><br>${escapeHtml(script.cta)}<br><br>
-          <span class="hashtag-row">${script.hashtags.split(' ').map(h => `<span class="hashtag">${h}</span>`).join('')}</span>
-        </div>
-      </div>
-      <div class="result-card">
-        <div class="result-header"><span class="result-title" style="color:var(--text2)">SCRIPT ${i + 1} — FILMING TIPS</span></div>
-        <ul class="tips-list">${script.tips.map(t => `<li>${escapeHtml(t)}</li>`).join('')}</ul>
-      </div>
-      <div style="height: 16px;"></div>
-    `;
+  const results = document.getElementById('results'); let output = '';
+  scripts.forEach((script,i) => {
+    output += '<div class="result-card"><div class="result-header"><span class="result-title" style="color:var(--accent3)">SCRIPT '+(i+1)+' — HOOK</span><button class="copy-btn" onclick="copyThis(this)">Copy</button></div><div class="script-box"><span class="hook-text">'+esc(script.hook)+'</span></div></div>';
+    output += '<div class="result-card"><div class="result-header"><span class="result-title" style="color:var(--text)">SCRIPT '+(i+1)+' — BODY</span><button class="copy-btn" onclick="copyThis(this)">Copy</button></div><div class="script-box"><span class="body-text">'+esc(script.body).replace(/\n/g,'<br>')+'</span></div></div>';
+    output += '<div class="result-card"><div class="result-header"><span class="result-title" style="color:var(--accent2)">SCRIPT '+(i+1)+' — CTA</span><button class="copy-btn" onclick="copyThis(this)">Copy</button></div><div class="script-box"><span class="cta-text">'+esc(script.cta)+'</span></div></div>';
+    output += '<div class="result-card"><div class="result-header"><span class="result-title" style="color:var(--accent4)">SCRIPT '+(i+1)+' — CAPTION + HASHTAGS</span><button class="copy-btn" onclick="copyThis(this)">Copy</button></div><div class="script-box" style="font-size:12px">'+esc(script.hook)+'<br><br>'+esc(script.cta)+'<br><br><span class="hashtag-row">'+script.hashtags.split(' ').map(h=>'<span class="hashtag">'+h+'</span>').join('')+'</span></div></div>';
+    output += '<div class="result-card"><div class="result-header"><span class="result-title" style="color:var(--text2)">SCRIPT '+(i+1)+' — FILMING TIPS</span></div><ul class="tips-list">'+script.tips.map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul></div><div style="height:16px"></div>';
   });
-  results.innerHTML = output;
-  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  populateVoiceParts(scripts);
+  results.innerHTML = output; results.scrollIntoView({behavior:'smooth',block:'start'}); populateVoiceParts(scripts);
 }
+function esc(t){ const d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
+function copyThis(btn){ const t=btn.closest('.result-card').querySelector('.script-box').innerText; navigator.clipboard.writeText(t).then(()=>{btn.textContent='Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied');},2000);}); }
 
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
-}
-
-function copyThis(btn) {
-  const text = btn.closest('.result-card').querySelector('.script-box').innerText;
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = 'Copied!';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
-  });
-}
-
-// ==================== PROJECT SYSTEM ====================
 function createProject(scripts) {
-  const project = {
-    id: Date.now(),
-    title: scripts[0].hook.substring(0, 50) + '...',
-    status: 'ready',
-    scripts: scripts,
-    created: new Date().toLocaleString(),
-    thumbnails: [],
-    assets: { images: [], videos: [], audio: null }
-  };
-  projects.unshift(project);
+  projects.unshift({id:Date.now(),title:scripts[0].hook.substring(0,50)+'...',status:'ready',scripts:scripts,created:new Date().toLocaleString(),thumbnails:[],assets:{images:[],videos:[],audio:null}});
   renderProjects();
 }
-
 function renderProjects() {
   const list = document.getElementById('projectsList');
-  if (projects.length === 0) {
-    list.innerHTML = '<p style="color:var(--text2);font-size:12px;text-align:center;padding:20px;">No projects yet. Start a pipeline!</p>';
-    return;
-  }
-  list.innerHTML = projects.map(p => `
-    <div class="project-card">
-      <div class="project-header"><span class="project-title">${escapeHtml(p.title)}</span><span class="project-status status-${p.status}">${p.status.toUpperCase()}</span></div>
-      <div style="font-size:11px;color:var(--text2);margin-bottom:10px">Created: ${p.created}</div>
-      <div class="asset-grid">
-        <div class="asset-item">📝 ${p.scripts.length} Script(s)</div>
-        <div class="asset-item">🎙️ Voice Ready</div>
-        <div class="asset-item">🎨 Visuals Ready</div>
-        <div class="asset-item">✂️ Edited</div>
-      </div>
-      <button class="download-btn" onclick="downloadProject(${p.id})">📦 Download Project Package</button>
-    </div>
-  `).join('');
+  if(projects.length===0){ list.innerHTML = '<p style="color:var(--text2);font-size:12px;text-align:center;padding:20px;">No projects yet. Start a pipeline!</p>'; return; }
+  list.innerHTML = projects.map(p => '<div class="project-card"><div class="project-header"><span class="project-title">'+esc(p.title)+'</span><span class="project-status status-'+p.status+'">'+p.status.toUpperCase()+'</span></div><div style="font-size:11px;color:var(--text2);margin-bottom:10px">Created: '+p.created+'</div><div class="asset-grid"><div class="asset-item">📝 '+p.scripts.length+' Script(s)</div><div class="asset-item">🎙️ Voice Ready</div><div class="asset-item">🎨 Visuals Ready</div><div class="asset-item">✂️ Edited</div></div><button class="download-btn" onclick="downloadProject('+p.id+')">📦 Download Project Package</button></div>').join('');
 }
-
 function downloadProject(id) {
-  const project = projects.find(p => p.id === id);
-  if (!project) return;
-  const pkg = {
-    project: project,
-    instructions: {
-      voice: "Use the Web Speech API in the Voice tab to generate audio. Recommended: slow pace (0.9x), calm pitch.",
-      visuals: "Search Pexels/Pixabay using keywords from your script topic. Look for dark, mysterious, high-contrast imagery.",
-      editing: "Use CapCut (free mobile) or DaVinci Resolve (free desktop). Sync cuts to voice pauses. Add subtle ambient music.",
-      music: "Free music: YouTube Audio Library, Mixkit, Free Music Archive. Use ambient/cinematic tracks.",
-      posting: "Post at 11am or 7pm. Use all 5K characters for description. Pin a comment with the CTA."
-    },
-    exportDate: new Date().toISOString()
-  };
-  const blob = new Blob([JSON.stringify(pkg, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `shorts-project-${id}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
-  logActivity('system', 'Project package downloaded.');
+  const p = projects.find(x=>x.id===id); if(!p)return;
+  const pkg = {project:p, instructions:{voice:"Use the Web Speech API in the Voice tab. Recommended: slow pace (0.9x), calm pitch.",visuals:"Search Pexels/Pixabay using keywords from your script topic. Dark, mysterious, high-contrast imagery.",editing:"Use CapCut (free mobile) or DaVinci Resolve (free desktop). Sync cuts to voice pauses. Add subtle ambient music.",music:"Free music: YouTube Audio Library, Mixkit, Free Music Archive. Use ambient/cinematic tracks.",posting:"Post at 11am or 7pm. Use all 5K characters for description. Pin a comment with the CTA."}, exportDate:new Date().toISOString()};
+  const blob = new Blob([JSON.stringify(pkg,null,2)],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='shorts-project-'+id+'.json'; a.click(); URL.revokeObjectURL(url); logActivity('system','Project package downloaded.');
 }
 
-// ==================== VOICE SYSTEM ====================
-let synth = window.speechSynthesis;
-let voices = [];
-
+let synth = window.speechSynthesis, voices = [];
 function initVoices() {
   const voiceSelect = document.getElementById('voiceSelect');
   function loadVoices() {
-    voices = synth.getVoices();
-    voiceSelect.innerHTML = '';
-    voices.forEach((voice, i) => {
-      const opt = document.createElement('option');
-      opt.value = i;
-      opt.textContent = `${voice.name} (${voice.lang})`;
-      voiceSelect.appendChild(opt);
-    });
-    const calmVoice = voices.findIndex(v => 
-      v.name.includes('Samantha') || v.name.includes('Karen') || 
-      v.name.includes('Google UK English Female') || v.name.includes('Microsoft Zira')
-    );
-    if (calmVoice >= 0) voiceSelect.value = calmVoice;
+    voices = synth.getVoices(); voiceSelect.innerHTML = '';
+    voices.forEach((voice, i) => { const opt = document.createElement('option'); opt.value = i; opt.textContent = voice.name + ' (' + voice.lang + ')'; voiceSelect.appendChild(opt); });
+    const calmVoice = voices.findIndex(v => v.name.includes('Samantha') || v.name.includes('Karen') || v.name.includes('Google UK English Female') || v.name.includes('Microsoft Zira'));
+    if(calmVoice >= 0) voiceSelect.value = calmVoice;
   }
-  loadVoices();
-  if (speechSynthesis.onvoiceschanged !== undefined) {
-    speechSynthesis.onvoiceschanged = loadVoices;
-  }
+  loadVoices(); if(speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = loadVoices;
 }
-
 function speakText() {
-  const text = document.getElementById('voiceText').value.trim();
-  if (!text) return;
+  const text = document.getElementById('voiceText').value.trim(); if(!text) return;
   const utter = new SpeechSynthesisUtterance(text);
   const voiceIdx = document.getElementById('voiceSelect').value;
-  if (voices[voiceIdx]) utter.voice = voices[voiceIdx];
+  if(voices[voiceIdx]) utter.voice = voices[voiceIdx];
   utter.rate = parseFloat(document.getElementById('rateRange').value);
   utter.pitch = parseFloat(document.getElementById('pitchRange').value);
   utter.lang = document.getElementById('langSelect').value;
-  const bars = document.querySelectorAll('.viz-bar');
-  bars.forEach(b => b.classList.add('playing'));
+  const bars = document.querySelectorAll('.viz-bar'); bars.forEach(b => b.classList.add('playing'));
   utter.onend = () => bars.forEach(b => b.classList.remove('playing'));
   utter.onerror = () => bars.forEach(b => b.classList.remove('playing'));
-  synth.speak(utter);
-  logActivity('voice', 'Voice generated audio preview.');
+  synth.speak(utter); logActivity('voice','Voice generated audio preview.');
 }
-
-function stopSpeech() {
-  synth.cancel();
-  document.querySelectorAll('.viz-bar').forEach(b => b.classList.remove('playing'));
-}
-
-function downloadAudio() {
-  alert('To save audio:\n1. Use a screen recorder with audio capture\n2. Or use a browser extension like "Audio Capture"\n3. Or use ElevenLabs (free tier) for higher quality exports\n\nFor mobile: Record while playing using a second device or voice memo app.');
-  logActivity('voice', 'Audio download instructions provided.');
-}
-
+function stopSpeech() { synth.cancel(); document.querySelectorAll('.viz-bar').forEach(b => b.classList.remove('playing')); }
+function downloadAudio() { alert('To save audio:\n1. Use a screen recorder with audio capture\n2. Or use a browser extension like "Audio Capture"\n3. Or use ElevenLabs (free tier) for higher quality exports\n\nFor mobile: Record while playing using a second device or voice memo app.'); logActivity('voice','Audio download instructions provided.'); }
 function populateVoiceParts(scripts) {
   const container = document.getElementById('voiceParts');
-  container.innerHTML = scripts.map((s, i) => `
-    <div class="result-card" style="margin-bottom:8px">
-      <div class="result-header"><span class="result-title">Script ${i+1} Parts</span></div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
-        <button class="action-btn" onclick="loadVoiceText(${JSON.stringify(s.hook)})">Load Hook</button>
-        <button class="action-btn" onclick="loadVoiceText(${JSON.stringify(s.body)})">Load Body</button>
-        <button class="action-btn" onclick="loadVoiceText(${JSON.stringify(s.cta)})">Load CTA</button>
-        <button class="action-btn" onclick="loadVoiceText(${JSON.stringify(s.hook + ' ' + s.body + ' ' + s.cta)})">Load Full</button>
-      </div>
-    </div>
-  `).join('');
+  container.innerHTML = scripts.map((s,i) => '<div class="result-card" style="margin-bottom:8px"><div class="result-header"><span class="result-title">Script '+(i+1)+' Parts</span></div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px"><button class="action-btn" onclick="loadVoiceText('+JSON.stringify(s.hook).replace(/"/g,'&quot;')+')">Load Hook</button><button class="action-btn" onclick="loadVoiceText('+JSON.stringify(s.body).replace(/"/g,'&quot;')+')">Load Body</button><button class="action-btn" onclick="loadVoiceText('+JSON.stringify(s.cta).replace(/"/g,'&quot;')+')">Load CTA</button><button class="action-btn" onclick="loadVoiceText('+JSON.stringify(s.hook+' '+s.body+' '+s.cta).replace(/"/g,'&quot;')+')">Load Full</button></div></div>').join('');
 }
+function loadVoiceText(text) { document.getElementById('voiceText').value = text; document.querySelectorAll('.tab').forEach(t => t.classList.remove('active')); document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active')); document.querySelector('[data-tab="voice"]').classList.add('active'); document.getElementById('tab-voice').classList.add('active'); }
 
-function loadVoiceText(text) {
-  document.getElementById('voiceText').value = text;
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelector('[data-tab="voice"]').classList.add('active');
-  document.getElementById('tab-voice').classList.add('active');
-}
-
-// ==================== THUMBNAIL GENERATOR ====================
 function generateThumbnail() {
-  const canvas = document.getElementById('thumbCanvas');
-  const ctx = canvas.getContext('2d');
+  const canvas = document.getElementById('thumbCanvas'), ctx = canvas.getContext('2d');
   const title1 = document.getElementById('thumbTitle1').value || 'SCIENTISTS';
   const title2 = document.getElementById('thumbTitle2').value || 'ARE CONFUSED';
   const accent = document.getElementById('thumbColor').value;
   const emoji = document.getElementById('thumbEmoji').value || '🔮';
-
-  const grad = ctx.createLinearGradient(0, 0, 0, 720);
-  grad.addColorStop(0, '#0a0a1a');
-  grad.addColorStop(0.5, '#1a0a2e');
-  grad.addColorStop(1, '#0a0a1a');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, 1280, 720);
-
-  ctx.strokeStyle = 'rgba(255,255,255,0.03)';
-  ctx.lineWidth = 1;
-  for (let i = 0; i < 1280; i += 40) { ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, 720); ctx.stroke(); }
-  for (let i = 0; i < 720; i += 40) { ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(1280, i); ctx.stroke(); }
-
-  ctx.shadowColor = accent;
-  ctx.shadowBlur = 60;
-  ctx.fillStyle = accent;
-  ctx.fillRect(440, 200, 400, 320);
-  ctx.shadowBlur = 0;
-
-  ctx.fillStyle = 'rgba(0,0,0,0.7)';
-  ctx.fillRect(420, 180, 440, 360);
-  ctx.strokeStyle = accent;
-  ctx.lineWidth = 4;
-  ctx.strokeRect(420, 180, 440, 360);
-
-  ctx.font = '80px Arial';
-  ctx.textAlign = 'center';
-  ctx.fillText(emoji, 640, 280);
-
-  ctx.font = 'bold 72px Arial, sans-serif';
-  ctx.fillStyle = '#fff';
-  ctx.textAlign = 'center';
-  ctx.shadowColor = 'rgba(0,0,0,0.8)';
-  ctx.shadowBlur = 10;
-  ctx.fillText(title1.toUpperCase(), 640, 400);
-  ctx.fillStyle = accent;
-  ctx.fillText(title2.toUpperCase(), 640, 480);
-  ctx.shadowBlur = 0;
-
-  ctx.fillStyle = accent;
-  ctx.fillRect(420, 500, 440, 6);
-  ctx.fillRect(400, 160, 40, 40);
-  ctx.fillRect(840, 160, 40, 40);
-  ctx.fillRect(400, 520, 40, 40);
-  ctx.fillRect(840, 520, 40, 40);
+  const grad = ctx.createLinearGradient(0,0,0,720); grad.addColorStop(0,'#0a0a1a'); grad.addColorStop(0.5,'#1a0a2e'); grad.addColorStop(1,'#0a0a1a');
+  ctx.fillStyle = grad; ctx.fillRect(0,0,1280,720);
+  ctx.strokeStyle = 'rgba(255,255,255,0.03)'; ctx.lineWidth = 1;
+  for(let i=0;i<1280;i+=40){ ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,720); ctx.stroke(); }
+  for(let i=0;i<720;i+=40){ ctx.beginPath(); ctx.moveTo(0,i); ctx.lineTo(1280,i); ctx.stroke(); }
+  ctx.shadowColor = accent; ctx.shadowBlur = 60; ctx.fillStyle = accent; ctx.fillRect(440,200,400,320); ctx.shadowBlur = 0;
+  ctx.fillStyle = 'rgba(0,0,0,0.7)'; ctx.fillRect(420,180,440,360); ctx.strokeStyle = accent; ctx.lineWidth = 4; ctx.strokeRect(420,180,440,360);
+  ctx.font = '80px Arial'; ctx.textAlign = 'center'; ctx.fillText(emoji,640,280);
+  ctx.font = 'bold 72px Arial, sans-serif'; ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.shadowColor = 'rgba(0,0,0,0.8)'; ctx.shadowBlur = 10;
+  ctx.fillText(title1.toUpperCase(),640,400); ctx.fillStyle = accent; ctx.fillText(title2.toUpperCase(),640,480); ctx.shadowBlur = 0;
+  ctx.fillStyle = accent; ctx.fillRect(420,500,440,6); ctx.fillRect(400,160,40,40); ctx.fillRect(840,160,40,40); ctx.fillRect(400,520,40,40); ctx.fillRect(840,520,40,40);
 }
+function downloadThumbnail() { const canvas = document.getElementById('thumbCanvas'); const link = document.createElement('a'); link.download = 'shorts-thumbnail-' + Date.now() + '.png'; link.href = canvas.toDataURL('image/png'); link.click(); logActivity('vision','Thumbnail downloaded.'); }
 
-function downloadThumbnail() {
-  const canvas = document.getElementById('thumbCanvas');
-  const link = document.createElement('a');
-  link.download = 'shorts-thumbnail-' + Date.now() + '.png';
-  link.href = canvas.toDataURL('image/png');
-  link.click();
-  logActivity('vision', 'Thumbnail downloaded.');
-}
-
-// ==================== VISUAL SEARCH ====================
 function searchVisuals() {
   const query = document.getElementById('visualSearch').value.trim() || 'space mystery';
   const results = document.getElementById('visualResults');
   results.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--text2)">Searching...</div>';
   const keywords = query.replace(/\s+/g, ',');
-  const images = [];
-  for (let i = 0; i < 6; i++) {
-    images.push(`https://source.unsplash.com/400x300/?${keywords}&sig=${Date.now() + i}`);
-  }
-  setTimeout(() => {
-    results.innerHTML = images.map((url, i) => `
-      <div class="asset-item" style="cursor:pointer" onclick="window.open('${url}', '_blank')">
-        <img src="${url}" alt="Visual ${i+1}" loading="lazy" onerror="this.parentElement.style.display='none'">
-        <div>Image ${i+1}</div>
-      </div>
-    `).join('');
-    logActivity('vision', `Found visuals for "${query}"`);
-  }, 800);
+  const images = []; for(let i=0;i<6;i++) images.push('https://source.unsplash.com/400x300/?' + keywords + '&sig=' + (Date.now()+i));
+  setTimeout(() => { results.innerHTML = images.map((url,i) => '<div class="asset-item" style="cursor:pointer" onclick="window.open(\''+url+'\',\'_blank\')"><img src="'+url+'" alt="Visual '+(i+1)+'" loading="lazy" onerror="this.parentElement.style.display=\'none\'"><div>Image '+(i+1)+'</div></div>').join(''); logActivity('vision','Found visuals for "'+query+'"'); }, 800);
 }
 
-// ==================== CHAT SYSTEM ====================
 function initChat() {
   const select = document.getElementById('chatAgentSelect');
-  Object.values(agents).forEach(a => {
-    const opt = document.createElement('option');
-    opt.value = a.id;
-    opt.textContent = a.emoji + ' ' + a.name;
-    select.appendChild(opt);
-  });
-  setTimeout(() => {
-    addChatMessage('scout', "Hey boss! I'm Scout, your research lead. Ready to find some viral angles? Just hit START PRODUCTION!");
-  }, 1000);
+  Object.values(agents).forEach(a => { const opt = document.createElement('option'); opt.value = a.id; opt.textContent = a.emoji + ' ' + a.name; select.appendChild(opt); });
+  setTimeout(() => { addChatMessage('scout', "Hey boss! I'm Scout, your research lead. Ready to find some viral angles? Just hit START PRODUCTION!"); }, 1000);
 }
-
 function addChatMessage(agentId, text) {
-  const container = document.getElementById('chatMessages');
-  const msg = document.createElement('div');
-  msg.className = 'chat-message agent';
-  const agent = agents[agentId] || { name: 'System', color: '#888' };
-  msg.innerHTML = `<div class="msg-name" style="color:${agent.color}">${agent.emoji} ${agent.name}</div><div>${escapeHtml(text)}</div>`;
-  container.appendChild(msg);
-  container.scrollTop = container.scrollHeight;
+  const container = document.getElementById('chatMessages'); const msg = document.createElement('div');
+  msg.className = 'chat-message agent'; const agent = agents[agentId] || {name:'System',color:'#888'};
+  msg.innerHTML = '<div class="msg-name" style="color:'+agent.color+'">'+agent.emoji+' '+agent.name+'</div><div>'+esc(text)+'</div>';
+  container.appendChild(msg); container.scrollTop = container.scrollHeight;
 }
-
 function sendChat() {
-  const input = document.getElementById('chatInput');
-  const text = input.value.trim();
-  if (!text) return;
-  const container = document.getElementById('chatMessages');
-  const msg = document.createElement('div');
-  msg.className = 'chat-message user';
-  msg.textContent = text;
-  container.appendChild(msg);
-  container.scrollTop = container.scrollHeight;
-  input.value = '';
+  const input = document.getElementById('chatInput'), text = input.value.trim(); if(!text) return;
+  const container = document.getElementById('chatMessages'); const msg = document.createElement('div');
+  msg.className = 'chat-message user'; msg.textContent = text; container.appendChild(msg); container.scrollTop = container.scrollHeight; input.value = '';
   const target = document.getElementById('chatAgentSelect').value;
-  setTimeout(() => {
-    if (target === 'all') {
-      const ids = Object.keys(agents);
-      respondAs(ids[Math.floor(Math.random() * ids.length)], text);
-    } else {
-      respondAs(target, text);
-    }
-  }, 600);
+  setTimeout(() => { if(target==='all'){ const ids = Object.keys(agents); respondAs(ids[Math.floor(Math.random()*ids.length)], text); } else { respondAs(target, text); } }, 600);
 }
-
 function respondAs(agentId, userText) {
-  const agent = agents[agentId];
-  let response = agent.messages[Math.floor(Math.random() * agent.messages.length)];
+  const agent = agents[agentId]; let response = agent.messages[Math.floor(Math.random()*agent.messages.length)];
   const lower = userText.toLowerCase();
-  if (lower.includes('hello') || lower.includes('hi')) {
-    response = `Hey there! ${agent.emoji} ${agent.name} here. Ready to create something amazing?`;
-  } else if (lower.includes('tired') || lower.includes('rest')) {
-    response = "Take a break! Your best work comes when you're refreshed. I'll be here when you get back. 💚";
-    updateAgent(agentId, { status: 'resting', task: 'Encouraging break', mood: '😌' });
-  } else if (lower.includes('work') || lower.includes('start')) {
-    response = "Let's DO THIS! I'm fired up and ready to grind! 💪";
-    updateAgent(agentId, { status: 'working', task: 'Responding to boss', mood: '🔥' });
-  } else if (lower.includes('thank')) {
-    response = "Aww, that means everything! 🥹 Let's make something incredible together.";
-  } else if (lower.includes('good job') || lower.includes('amazing')) {
-    response = "YOU'RE amazing! I'm just doing my part. Teamwork makes the dream work! ✨";
-  }
+  if(lower.includes('hello') || lower.includes('hi')) response = "Hey there! " + agent.emoji + " " + agent.name + " here. Ready to create something amazing?";
+  else if(lower.includes('tired') || lower.includes('rest')) { response = "Take a break! Your best work comes when you're refreshed. I'll be here when you get back. 💚"; updateAgent(agentId, {status:'resting',task:'Encouraging break',mood:'😌'}); }
+  else if(lower.includes('work') || lower.includes('start')) { response = "Let's DO THIS! I'm fired up and ready to grind! 💪"; updateAgent(agentId, {status:'working',task:'Responding to boss',mood:'🔥'}); }
+  else if(lower.includes('thank')) response = "Aww, that means everything! 🥹 Let's make something incredible together.";
+  else if(lower.includes('good job') || lower.includes('amazing')) response = "YOU'RE amazing! I'm just doing my part. Teamwork makes the dream work! ✨";
   addChatMessage(agentId, response);
 }
-
 function rewardAgent(type) {
   const target = document.getElementById('chatAgentSelect').value;
-  const rewards = {
-    coffee: { emoji: '☕', text: 'coffee', mood: '☕' },
-    star: { emoji: '⭐', text: 'star', mood: '⭐' },
-    heart: { emoji: '❤️', text: 'love', mood: '🥰' },
-    energy: { emoji: '⚡', text: 'energy drink', mood: '💪' }
-  };
+  const rewards = { coffee:{emoji:'☕',text:'coffee',mood:'☕'}, star:{emoji:'⭐',text:'star',mood:'⭐'}, heart:{emoji:'❤️',text:'love',mood:'🥰'}, energy:{emoji:'⚡',text:'energy drink',mood:'💪'} };
   const r = rewards[type];
-  if (target === 'all') {
-    Object.keys(agents).forEach(id => {
-      agents[id].stats.energy = Math.min(100, agents[id].stats.energy + 20);
-      agents[id].mood = r.mood;
-    });
-    addChatMessage('scout', `Boss just gave everyone ${r.emoji} ${r.text}! We're all hyped now! 🔥`);
-    logActivity('system', `All agents rewarded with ${r.text}.`);
-  } else {
-    agents[target].stats.energy = Math.min(100, agents[target].stats.energy + 25);
-    agents[target].mood = r.mood;
-    addChatMessage(target, `Aww, ${r.emoji} for me? Thanks boss! I'm feeling energized!`);
-    logActivity(target, `${agents[target].name} rewarded with ${r.text}.`);
-  }
+  if(target === 'all') { Object.keys(agents).forEach(id => { agents[id].stats.energy = Math.min(100, agents[id].stats.energy + 20); agents[id].mood = r.mood; }); addChatMessage('scout', 'Boss just gave everyone ' + r.emoji + ' ' + r.text + "! We're all hyped now! 🔥"); logActivity('system','All agents rewarded with ' + r.text + '.'); }
+  else { agents[target].stats.energy = Math.min(100, agents[target].stats.energy + 25); agents[target].mood = r.mood; addChatMessage(target, 'Aww, ' + r.emoji + ' for me? Thanks boss! I\'m feeling energized!'); logActivity(target, agents[target].name + ' rewarded with ' + r.text + '.'); }
   renderAgents();
 }
 
-// ==================== ACTIVITY LOG ====================
 function logActivity(agentId, text) {
-  const log = document.getElementById('activityLog');
-  const entry = document.createElement('div');
-  entry.className = 'log-entry';
-  const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-  const agent = agents[agentId] || { name: 'System', color: '#888' };
-  entry.innerHTML = `<span class="log-time">${time}</span><span class="log-agent" style="color:${agent.color}">${agent.name}:</span><span>${escapeHtml(text)}</span>`;
-  log.insertBefore(entry, log.firstChild);
-  while (log.children.length > 50) log.removeChild(log.lastChild);
+  const log = document.getElementById('activityLog'); const entry = document.createElement('div');
+  entry.className = 'log-entry'; const time = new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const agent = agents[agentId] || {name:'System',color:'#888'};
+  entry.innerHTML = '<span class="log-time">'+time+'</span><span class="log-agent" style="color:'+agent.color+'">'+agent.name+':</span><span>'+esc(text)+'</span>';
+  log.insertBefore(entry, log.firstChild); while(log.children.length > 50) log.removeChild(log.lastChild);
 }
 
-// ==================== AGENT MODAL ====================
 function openAgentModal(id) {
   const agent = agents[id];
-  document.getElementById('modalTitle').innerHTML = `${agent.emoji} ${agent.name} — ${agent.role}`;
-  document.getElementById('modalContent').innerHTML = `
-    <div style="text-align:center;margin-bottom:16px">
-      <div style="font-size:60px;margin-bottom:8px">${agent.emoji}</div>
-      <div style="font-size:24px;font-weight:700;color:${agent.color}">${agent.name}</div>
-      <div style="color:var(--text2);font-size:13px">${agent.role}</div>
-    </div>
-    <div style="background:var(--panel2);border-radius:10px;padding:14px;margin-bottom:12px">
-      <div style="font-size:11px;color:var(--text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">Stats</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px">
-        ${Object.entries(agent.stats).map(([k,v]) => `
-          <div style="background:var(--panel3);padding:8px;border-radius:6px">
-            <div style="color:var(--text3);font-size:10px;text-transform:uppercase">${k}</div>
-            <div style="font-weight:700;font-size:16px">${v}</div>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-    <div style="background:var(--panel2);border-radius:10px;padding:14px;margin-bottom:12px">
-      <div style="font-size:11px;color:var(--text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">Current Status</div>
-      <div style="font-size:13px"><strong style="color:${agent.color}">${agent.status.toUpperCase()}</strong> — ${agent.task}</div>
-      <div style="margin-top:8px;font-size:20px">Mood: ${agent.mood}</div>
-    </div>
-    <div style="background:var(--panel2);border-radius:10px;padding:14px">
-      <div style="font-size:11px;color:var(--text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">Personality</div>
-      <div style="font-size:13px;color:var(--text2)">${agent.personality.charAt(0).toUpperCase() + agent.personality.slice(1)} — ${getPersonalityDesc(agent.personality)}</div>
-    </div>
-  `;
+  document.getElementById('modalTitle').innerHTML = agent.emoji + ' ' + agent.name + ' — ' + agent.role;
+  document.getElementById('modalContent').innerHTML = '<div style="text-align:center;margin-bottom:16px"><div style="font-size:60px;margin-bottom:8px">'+agent.emoji+'</div><div style="font-size:24px;font-weight:700;color:'+agent.color+'">'+agent.name+'</div><div style="color:var(--text2);font-size:13px">'+agent.role+'</div></div><div style="background:var(--panel2);border-radius:10px;padding:14px;margin-bottom:12px"><div style="font-size:11px;color:var(--text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">Stats</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px">'+Object.entries(agent.stats).map(([k,v])=>'<div style="background:var(--panel3);padding:8px;border-radius:6px"><div style="color:var(--text3);font-size:10px;text-transform:uppercase">'+k+'</div><div style="font-weight:700;font-size:16px">'+v+'</div></div>').join('')+'</div></div><div style="background:var(--panel2);border-radius:10px;padding:14px;margin-bottom:12px"><div style="font-size:11px;color:var(--text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">Current Status</div><div style="font-size:13px"><strong style="color:'+agent.color+'">'+agent.status.toUpperCase()+'</strong> — '+agent.task+'</div><div style="margin-top:8px;font-size:20px">Mood: '+agent.mood+'</div></div><div style="background:var(--panel2);border-radius:10px;padding:14px"><div style="font-size:11px;color:var(--text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">Personality</div><div style="font-size:13px;color:var(--text2)">'+(agent.personality.charAt(0).toUpperCase()+agent.personality.slice(1))+' — '+getPersonalityDesc(agent.personality)+'</div></div>';
   document.getElementById('agentModal').classList.add('active');
 }
-
-function getPersonalityDesc(p) {
-  const descs = {
-    energetic: 'Always hyped, motivational, pushes the team forward.',
-    calm: 'Steady, soothing, brings balance to chaos.',
-    creative: 'Imaginative, visual thinker, sees possibilities.',
-    precise: 'Detail-oriented, perfectionist, quality focused.',
-    critical: 'Honest, high standards, ensures excellence.'
-  };
-  return descs[p] || 'Unique and valuable.';
-}
-
-function closeModal() {
-  document.getElementById('agentModal').classList.remove('active');
-}
-
-// ==================== RENDER PROJECTS INIT ====================
+function getPersonalityDesc(p) { const descs = {energetic:'Always hyped, motivational, pushes the team forward.',calm:'Steady, soothing, brings balance to chaos.',creative:'Imaginative, visual thinker, sees possibilities.',precise:'Detail-oriented, perfectionist, quality focused.',critical:'Honest, high standards, ensures excellence.'}; return descs[p] || 'Unique and valuable.'; }
+function closeModal() { document.getElementById('agentModal').classList.remove('active'); }
 renderProjects();
+
+/* ============================================================
+   VIDEO STUDIO ENGINE — Full canvas animation + MediaRecorder
+   ============================================================ */
+
+let videoEngine = {
+  running: false,
+  recording: false,
+  recorder: null,
+  chunks: [],
+  startTime: 0,
+  duration: 45000,
+  scenes: [],
+  theme: 'cosmic',
+  textAnim: 'typewriter',
+  musicType: 'ambient',
+  canvas: null,
+  ctx: null,
+  animFrame: null,
+  audioCtx: null,
+  musicGain: null,
+  musicNodes: [],
+  particles: [],
+  stars: [],
+  script: null,
+  finishedBlob: null
+};
+
+const THEME_DEFS = {
+  cosmic: {
+    bgGradient: (ctx, w, h, t) => {
+      const g = ctx.createRadialGradient(w/2, h/2, 0, w/2, h/2, w);
+      g.addColorStop(0, '#0a0a2e'); g.addColorStop(0.5, '#050514'); g.addColorStop(1, '#02020a');
+      return g;
+    },
+    accent: '#00ff88', text: '#ffffff', subtext: '#aabbff',
+    particleType: 'stars'
+  },
+  neon: {
+    bgGradient: (ctx, w, h, t) => {
+      const g = ctx.createLinearGradient(0, 0, w, h);
+      g.addColorStop(0, '#0a0014'); g.addColorStop(0.5, '#001a1a'); g.addColorStop(1, '#0a0014');
+      return g;
+    },
+    accent: '#ff00ff', text: '#ffffff', subtext: '#ffaaee',
+    particleType: 'neonGrid'
+  },
+  minimal: {
+    bgGradient: (ctx, w, h, t) => {
+      const g = ctx.createLinearGradient(0, 0, 0, h);
+      g.addColorStop(0, '#111111'); g.addColorStop(1, '#0a0a0a');
+      return g;
+    },
+    accent: '#ffffff', text: '#ffffff', subtext: '#888888',
+    particleType: 'minimalDots'
+  },
+  mystery: {
+    bgGradient: (ctx, w, h, t) => {
+      const g = ctx.createRadialGradient(w/2, h*0.6, 0, w/2, h*0.6, w);
+      g.addColorStop(0, '#2a0a0a'); g.addColorStop(0.5, '#0f0202'); g.addColorStop(1, '#050101');
+      return g;
+    },
+    accent: '#ff3366', text: '#ffe0e0', subtext: '#ff8899',
+    particleType: 'embers'
+  }
+};
+
+function populateVideoScripts() {
+  const select = document.getElementById('videoScriptSelect');
+  select.innerHTML = '<option value="">-- Select a script to animate --</option>';
+  projects.forEach((p, pi) => {
+    p.scripts.forEach((s, si) => {
+      const label = (pi+1)+'.'+(si+1)+' '+s.hook.substring(0, 50)+'...';
+      const opt = document.createElement('option');
+      opt.value = JSON.stringify({projectIdx: pi, scriptIdx: si});
+      opt.textContent = label;
+      select.appendChild(opt);
+    });
+  });
+  if (projects.length === 0) {
+    select.innerHTML = '<option value="">-- Generate scripts first in the Scripts tab --</option>';
+  }
+}
+
+function buildScenes(script, totalDurationMs) {
+  const scenes = [];
+  const hookDur = Math.min(7000, totalDurationMs * 0.18);
+  const ctaDur = Math.min(5000, totalDurationMs * 0.15);
+  const bodyDur = totalDurationMs - hookDur - ctaDur;
+  const bodyParts = script.body.split(/\n\n+/).filter(p => p.trim().length > 0);
+  const partDur = bodyParts.length > 0 ? bodyDur / bodyParts.length : bodyDur;
+
+  let t = 0;
+  scenes.push({ type: 'hook', text: script.hook, start: t, end: t + hookDur, style: 'big' });
+  t += hookDur;
+  bodyParts.forEach((part, i) => {
+    scenes.push({ type: 'body', text: part.trim(), start: t, end: t + partDur, style: 'normal' });
+    t += partDur;
+  });
+  scenes.push({ type: 'cta', text: script.cta, start: t, end: t + ctaDur, style: 'cta' });
+  return scenes;
+}
+
+function initParticles(theme, w, h) {
+  videoEngine.particles = [];
+  videoEngine.stars = [];
+  const def = THEME_DEFS[theme];
+  if (def.particleType === 'stars' || def.particleType === 'minimalDots') {
+    for (let i = 0; i < 80; i++) {
+      videoEngine.stars.push({
+        x: Math.random() * w, y: Math.random() * h,
+        size: Math.random() * 2 + 0.5,
+        speed: Math.random() * 0.3 + 0.1,
+        twinkle: Math.random() * Math.PI * 2,
+        twinkleSpeed: Math.random() * 0.02 + 0.01
+      });
+    }
+  }
+  if (def.particleType === 'neonGrid') {
+    for (let i = 0; i < 40; i++) {
+      videoEngine.particles.push({
+        x: Math.random() * w, y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 2, vy: (Math.random() - 0.5) * 2,
+        size: Math.random() * 3 + 1,
+        life: Math.random() * 100
+      });
+    }
+  }
+  if (def.particleType === 'embers') {
+    for (let i = 0; i < 60; i++) {
+      videoEngine.particles.push({
+        x: Math.random() * w, y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.5, vy: -Math.random() * 1.5 - 0.5,
+        size: Math.random() * 3 + 1,
+        alpha: Math.random(),
+        decay: Math.random() * 0.01 + 0.003
+      });
+    }
+  }
+}
+
+function drawBackground(ctx, w, h, theme, elapsed) {
+  const def = THEME_DEFS[theme];
+  ctx.fillStyle = def.bgGradient(ctx, w, h, elapsed);
+  ctx.fillRect(0, 0, w, h);
+
+  if (def.particleType === 'stars') {
+    videoEngine.stars.forEach(s => {
+      s.twinkle += s.twinkleSpeed;
+      const alpha = 0.3 + Math.sin(s.twinkle) * 0.3;
+      ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2); ctx.fill();
+    });
+  }
+  if (def.particleType === 'minimalDots') {
+    videoEngine.stars.forEach(s => {
+      s.twinkle += s.twinkleSpeed;
+      const alpha = 0.1 + Math.sin(s.twinkle) * 0.1;
+      ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.size * 0.6, 0, Math.PI * 2); ctx.fill();
+    });
+  }
+  if (def.particleType === 'neonGrid') {
+    ctx.strokeStyle = 'rgba(255,0,255,0.08)';
+    ctx.lineWidth = 1;
+    const gridSize = 80;
+    const offset = (elapsed * 0.02) % gridSize;
+    for (let x = offset; x < w; x += gridSize) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
+    for (let y = offset; y < h; y += gridSize) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+    videoEngine.particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy; p.life++;
+      if (p.x < 0 || p.x > w) p.vx *= -1;
+      if (p.y < 0 || p.y > h) p.vy *= -1;
+      const alpha = 0.4 + Math.sin(p.life * 0.05) * 0.3;
+      ctx.shadowColor = '#ff00ff'; ctx.shadowBlur = 10;
+      ctx.fillStyle = `rgba(255,0,255,${alpha})`;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+      ctx.shadowBlur = 0;
+    });
+  }
+  if (def.particleType === 'embers') {
+    videoEngine.particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy; p.alpha -= p.decay;
+      if (p.alpha <= 0) { p.x = Math.random() * w; p.y = h + 10; p.alpha = 1; }
+      ctx.fillStyle = `rgba(255,80,50,${p.alpha * 0.6})`;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+    });
+    const vig = ctx.createRadialGradient(w/2, h/2, h*0.3, w/2, h/2, h*0.8);
+    vig.addColorStop(0, 'rgba(0,0,0,0)'); vig.addColorStop(1, 'rgba(20,0,0,0.6)');
+    ctx.fillStyle = vig; ctx.fillRect(0, 0, w, h);
+  }
+}
+
+function wrapText(ctx, text, maxWidth) {
+  const words = text.split(' ');
+  const lines = [];
+  let current = '';
+  for (let word of words) {
+    const test = current ? current + ' ' + word : word;
+    if (ctx.measureText(test).width > maxWidth && current) {
+      lines.push(current);
+      current = word;
+    } else {
+      current = test;
+    }
+  }
+  if (current) lines.push(current);
+  return lines;
+}
+
+function drawTextScene(ctx, w, h, scene, elapsedInScene, totalElapsed, animType, theme) {
+  const def = THEME_DEFS[theme];
+  const isBig = scene.style === 'big';
+  const isCta = scene.style === 'cta';
+  const fontSize = isBig ? 72 : isCta ? 64 : 56;
+  const lineHeight = fontSize * 1.3;
+  const maxWidth = w * 0.85;
+
+  ctx.font = `bold ${fontSize}px "Segoe UI", system-ui, sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  const lines = wrapText(ctx, scene.text, maxWidth);
+  const totalTextHeight = lines.length * lineHeight;
+  const startY = (h - totalTextHeight) / 2 + lineHeight / 2;
+
+  const sceneDur = scene.end - scene.start;
+  const progress = Math.min(1, elapsedInScene / (sceneDur * 0.85));
+
+  lines.forEach((line, lineIdx) => {
+    const lineY = startY + lineIdx * lineHeight;
+    let displayText = line;
+    let alpha = 1;
+    let offsetY = 0;
+    let offsetX = 0;
+    let glitch = false;
+
+    const lineDelay = lineIdx * 0.15;
+    const lineProgress = Math.max(0, Math.min(1, (progress - lineDelay) / (1 - lineDelay)));
+
+    if (animType === 'typewriter') {
+      const totalChars = line.length;
+      const charsToShow = Math.floor(lineProgress * totalChars);
+      displayText = line.substring(0, charsToShow);
+      if (lineProgress < 1 && lineProgress > 0) {
+        const cursorBlink = Math.floor(totalElapsed / 400) % 2 === 0;
+        if (cursorBlink) displayText += '|';
+      }
+    } else if (animType === 'fade') {
+      alpha = Math.min(1, lineProgress * 3);
+    } else if (animType === 'slide') {
+      alpha = Math.min(1, lineProgress * 2);
+      offsetY = (1 - Math.min(1, lineProgress * 2)) * 60;
+    } else if (animType === 'glitch') {
+      alpha = Math.min(1, lineProgress * 2);
+      if (lineProgress < 0.6 && Math.random() < 0.08) {
+        offsetX = (Math.random() - 0.5) * 10;
+        glitch = true;
+      }
+    }
+
+    if (isBig || isCta) {
+      ctx.shadowColor = def.accent;
+      ctx.shadowBlur = isBig ? 30 : 20;
+    } else {
+      ctx.shadowColor = 'rgba(0,0,0,0.8)';
+      ctx.shadowBlur = 10;
+    }
+
+    if (glitch) {
+      ctx.fillStyle = `rgba(255,0,0,${alpha * 0.8})`;
+      ctx.fillText(displayText, w/2 - 3 + offsetX, lineY + offsetY);
+      ctx.fillStyle = `rgba(0,255,255,${alpha * 0.8})`;
+      ctx.fillText(displayText, w/2 + 3 + offsetX, lineY + offsetY);
+    }
+
+    ctx.fillStyle = isCta ? def.accent : def.text;
+    ctx.globalAlpha = alpha;
+    ctx.fillText(displayText, w/2 + offsetX, lineY + offsetY);
+    ctx.globalAlpha = 1;
+    ctx.shadowBlur = 0;
+  });
+
+  ctx.font = 'bold 24px "Segoe UI", system-ui, sans-serif';
+  ctx.fillStyle = def.accent;
+  ctx.globalAlpha = 0.4;
+  const labels = { hook: 'HOOK', body: 'STORY', cta: 'CALL TO ACTION' };
+  ctx.fillText(labels[scene.type] || '', w/2, h * 0.12);
+  ctx.globalAlpha = 1;
+
+  const barW = w * 0.6;
+  const barH = 6;
+  const barX = (w - barW) / 2;
+  const barY = h - 80;
+  ctx.fillStyle = 'rgba(255,255,255,0.15)';
+  ctx.fillRect(barX, barY, barW, barH);
+  ctx.fillStyle = def.accent;
+  ctx.fillRect(barX, barY, barW * progress, barH);
+}
+
+function startMusic(theme, musicType) {
+  if (!videoEngine.audioCtx) {
+    videoEngine.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  const ctx = videoEngine.audioCtx;
+  videoEngine.musicGain = ctx.createGain();
+  videoEngine.musicGain.gain.value = 0.12;
+  videoEngine.musicGain.connect(ctx.destination);
+
+  if (musicType === 'none') return;
+
+  const now = ctx.currentTime;
+  if (musicType === 'ambient') {
+    const osc1 = ctx.createOscillator(); osc1.type = 'sine'; osc1.frequency.value = 110;
+    const osc2 = ctx.createOscillator(); osc2.type = 'triangle'; osc2.frequency.value = 112;
+    const lfo = ctx.createOscillator(); lfo.type = 'sine'; lfo.frequency.value = 0.2;
+    const lfoGain = ctx.createGain(); lfoGain.gain.value = 30;
+    lfo.connect(lfoGain); lfoGain.connect(osc2.frequency);
+    osc1.connect(videoEngine.musicGain); osc2.connect(videoEngine.musicGain);
+    osc1.start(now); osc2.start(now); lfo.start(now);
+    videoEngine.musicNodes.push(osc1, osc2, lfo);
+  } else if (musicType === 'pulse') {
+    const osc = ctx.createOscillator(); osc.type = 'sawtooth'; osc.frequency.value = 55;
+    const filter = ctx.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.value = 400;
+    const lfo = ctx.createOscillator(); lfo.type = 'square'; lfo.frequency.value = 1.5;
+    const lfoGain = ctx.createGain(); lfoGain.gain.value = 300;
+    lfo.connect(lfoGain); lfoGain.connect(filter.frequency);
+    osc.connect(filter); filter.connect(videoEngine.musicGain);
+    osc.start(now); lfo.start(now);
+    videoEngine.musicNodes.push(osc, lfo);
+  }
+}
+
+function stopMusic() {
+  videoEngine.musicNodes.forEach(n => { try { n.stop(); } catch(e){} });
+  videoEngine.musicNodes = [];
+  if (videoEngine.musicGain) {
+    try { videoEngine.musicGain.disconnect(); } catch(e){}
+  }
+}
+
+function renderFrame(timestamp) {
+  if (!videoEngine.running) return;
+  const canvas = videoEngine.canvas;
+  const ctx = videoEngine.ctx;
+  const w = canvas.width;
+  const h = canvas.height;
+  const elapsed = timestamp - videoEngine.startTime;
+  const theme = videoEngine.theme;
+  const def = THEME_DEFS[theme];
+
+  let currentScene = null;
+  let elapsedInScene = 0;
+  for (const scene of videoEngine.scenes) {
+    if (elapsed >= scene.start && elapsed < scene.end) {
+      currentScene = scene;
+      elapsedInScene = elapsed - scene.start;
+      break;
+    }
+  }
+
+  drawBackground(ctx, w, h, theme, elapsed);
+
+  if (currentScene) {
+    drawTextScene(ctx, w, h, currentScene, elapsedInScene, elapsed, videoEngine.textAnim, theme);
+  } else if (elapsed >= videoEngine.duration) {
+    ctx.fillStyle = 'rgba(0,0,0,0.7)';
+    ctx.fillRect(0, 0, w, h);
+    ctx.font = 'bold 80px "Segoe UI", system-ui, sans-serif';
+    ctx.fillStyle = def.accent;
+    ctx.textAlign = 'center';
+    ctx.shadowColor = def.accent; ctx.shadowBlur = 40;
+    ctx.fillText('COMPLETE', w/2, h/2 - 30);
+    ctx.font = '36px "Segoe UI", system-ui, sans-serif';
+    ctx.fillStyle = '#fff'; ctx.shadowBlur = 0;
+    ctx.fillText('Ready to download', w/2, h/2 + 50);
+  }
+
+  const overallProgress = Math.min(1, elapsed / videoEngine.duration);
+  ctx.fillStyle = def.accent;
+  ctx.fillRect(0, 0, w * overallProgress, 4);
+
+  if (videoEngine.recording) {
+    const blink = Math.floor(elapsed / 500) % 2 === 0;
+    ctx.fillStyle = blink ? '#ff0000' : '#550000';
+    ctx.beginPath(); ctx.arc(50, 50, 12, 0, Math.PI*2); ctx.fill();
+    ctx.font = 'bold 24px sans-serif';
+    ctx.fillStyle = '#ff0000';
+    ctx.textAlign = 'left';
+    ctx.fillText('REC', 75, 58);
+  }
+
+  if (elapsed < videoEngine.duration + 2000) {
+    videoEngine.animFrame = requestAnimationFrame(renderFrame);
+  } else {
+    if (videoEngine.recording) stopRecording();
+    videoEngine.running = false;
+  }
+}
+
+async function recordVideo() {
+  const select = document.getElementById('videoScriptSelect');
+  const val = select.value;
+  if (!val) { alert('Please select a script first! Generate scripts in the Scripts tab.'); return; }
+
+  const { projectIdx, scriptIdx } = JSON.parse(val);
+  const script = projects[projectIdx].scripts[scriptIdx];
+  videoEngine.script = script;
+  videoEngine.theme = document.getElementById('videoTheme').value;
+  videoEngine.textAnim = document.getElementById('textAnim').value;
+  videoEngine.musicType = document.getElementById('videoMusic').value;
+  videoEngine.duration = parseInt(document.getElementById('videoDuration').value) * 1000;
+
+  const canvas = document.getElementById('videoCanvas');
+  videoEngine.canvas = canvas;
+  videoEngine.ctx = canvas.getContext('2d');
+  videoEngine.scenes = buildScenes(script, videoEngine.duration);
+  initParticles(videoEngine.theme, canvas.width, canvas.height);
+
+  const stream = canvas.captureStream(30);
+  const mimeTypes = ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm', 'video/mp4'];
+  let mimeType = mimeTypes.find(mt => MediaRecorder.isTypeSupported(mt)) || '';
+  if (!mimeType) { alert('Your browser does not support video recording. Try Chrome or Edge.'); return; }
+
+  videoEngine.recorder = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 5000000 });
+  videoEngine.chunks = [];
+  videoEngine.recorder.ondataavailable = e => { if (e.data.size > 0) videoEngine.chunks.push(e.data); };
+  videoEngine.recorder.onstop = () => {
+    const blob = new Blob(videoEngine.chunks, { type: mimeType });
+    videoEngine.finishedBlob = blob;
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'shorts-video-' + Date.now() + '.webm';
+    a.click();
+    URL.revokeObjectURL(url);
+    document.getElementById('videoRecordStatus').textContent = 'Video downloaded! Check your Downloads folder.';
+    document.getElementById('videoRecordProgress').style.width = '100%';
+    logActivity('editor', 'Video exported and downloaded.');
+    updateAgent('editor', { status: 'idle', task: 'Video exported', mood: '✅' });
+    updateAgent('curator', { status: 'idle', task: 'Review complete', mood: '✅' });
+  };
+
+  videoEngine.running = true;
+  videoEngine.recording = true;
+  videoEngine.startTime = performance.now();
+  videoEngine.recorder.start(100);
+
+  startMusic(videoEngine.theme, videoEngine.musicType);
+
+  const fullText = script.hook + '. ' + script.body.replace(/\n\n/g, ' ') + '. ' + script.cta;
+  const utter = new SpeechSynthesisUtterance(fullText);
+  const voiceIdx = document.getElementById('voiceSelect').value;
+  if (voices[voiceIdx]) utter.voice = voices[voiceIdx];
+  utter.rate = parseFloat(document.getElementById('rateRange').value) || 0.9;
+  utter.pitch = parseFloat(document.getElementById('pitchRange').value) || 1;
+  utter.lang = document.getElementById('langSelect').value || 'en-US';
+  synth.speak(utter);
+
+  document.getElementById('recIndicator').style.display = 'block';
+  document.getElementById('videoRecordStatus').textContent = 'Recording... ' + (videoEngine.duration/1000) + 's video';
+  document.getElementById('recordVideoBtn').disabled = true;
+  logActivity('editor', 'Editor started recording the video.');
+  updateAgent('editor', { status: 'working', task: 'Recording video', mood: '✂️' });
+  updateAgent('curator', { status: 'working', task: 'Monitoring export', mood: '👁️' });
+
+  videoEngine.animFrame = requestAnimationFrame(renderFrame);
+  setTimeout(() => { if (videoEngine.recording) stopRecording(); }, videoEngine.duration + 1000);
+}
+
+function stopRecording() {
+  if (!videoEngine.recording) return;
+  videoEngine.recording = false;
+  if (videoEngine.recorder && videoEngine.recorder.state !== 'inactive') {
+    videoEngine.recorder.stop();
+  }
+  stopMusic();
+  synth.cancel();
+  if (videoEngine.animFrame) cancelAnimationFrame(videoEngine.animFrame);
+  videoEngine.running = false;
+  document.getElementById('recIndicator').style.display = 'none';
+  document.getElementById('recordVideoBtn').disabled = false;
+  document.getElementById('videoRecordStatus').textContent = 'Recording stopped.';
+  logActivity('editor', 'Recording stopped.');
+}
+
+function playFullscreenPreview() {
+  const select = document.getElementById('videoScriptSelect');
+  const val = select.value;
+  if (!val) { alert('Please select a script first!'); return; }
+
+  const { projectIdx, scriptIdx } = JSON.parse(val);
+  const script = projects[projectIdx].scripts[scriptIdx];
+  videoEngine.script = script;
+  videoEngine.theme = document.getElementById('videoTheme').value;
+  videoEngine.textAnim = document.getElementById('textAnim').value;
+  videoEngine.musicType = document.getElementById('videoMusic').value;
+  videoEngine.duration = parseInt(document.getElementById('videoDuration').value) * 1000;
+
+  const fsCanvas = document.getElementById('fsCanvas');
+  videoEngine.canvas = fsCanvas;
+  videoEngine.ctx = fsCanvas.getContext('2d');
+  videoEngine.scenes = buildScenes(script, videoEngine.duration);
+  initParticles(videoEngine.theme, fsCanvas.width, fsCanvas.height);
+
+  document.getElementById('fullscreenOverlay').classList.add('active');
+  videoEngine.running = true;
+  videoEngine.recording = false;
+  videoEngine.startTime = performance.now();
+
+  startMusic(videoEngine.theme, videoEngine.musicType);
+
+  const fullText = script.hook + '. ' + script.body.replace(/\n\n/g, ' ') + '. ' + script.cta;
+  const utter = new SpeechSynthesisUtterance(fullText);
+  const voiceIdx = document.getElementById('voiceSelect').value;
+  if (voices[voiceIdx]) utter.voice = voices[voiceIdx];
+  utter.rate = parseFloat(document.getElementById('rateRange').value) || 0.9;
+  utter.pitch = parseFloat(document.getElementById('pitchRange').value) || 1;
+  synth.speak(utter);
+
+  videoEngine.animFrame = requestAnimationFrame(renderFrame);
+  setTimeout(() => { closeFullscreen(); }, videoEngine.duration + 2000);
+}
+
+function closeFullscreen() {
+  document.getElementById('fullscreenOverlay').classList.remove('active');
+  videoEngine.running = false;
+  if (videoEngine.animFrame) cancelAnimationFrame(videoEngine.animFrame);
+  stopMusic();
+  synth.cancel();
+  videoEngine.canvas = document.getElementById('videoCanvas');
+  videoEngine.ctx = videoEngine.canvas.getContext('2d');
+}
+
+populateVideoScripts();
+
 </script>
 </body>
 </html>
