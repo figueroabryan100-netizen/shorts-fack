@@ -138,6 +138,24 @@
   .fullscreen-overlay canvas { max-height: 100vh; max-width: 100vw; }
   .fs-close { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.2); color: #fff; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; z-index: 10000; }
 
+  .voiceover-section { background: var(--panel2); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 14px; }
+  .voiceover-section .section-label { margin-top: 0; margin-bottom: 10px; }
+  .voiceover-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; align-items: center; }
+  .voiceover-row select { flex: 1; min-width: 140px; }
+  .voiceover-row .voice-btn { flex: 1; min-width: 120px; justify-content: center; }
+  .voiceover-status { font-size: 12px; color: var(--text2); margin-bottom: 10px; min-height: 18px; }
+  .voiceover-status.ready { color: var(--accent); }
+  .voiceover-status.error { color: var(--accent3); }
+  .voiceover-audio { width: 100%; margin-bottom: 10px; border-radius: 8px; }
+  .voiceover-divider { text-align: center; font-size: 11px; color: var(--text3); margin: 10px 0; position: relative; }
+  .voiceover-divider::before, .voiceover-divider::after { content: ''; position: absolute; top: 50%; width: 40%; height: 1px; background: var(--border); }
+  .voiceover-divider::before { left: 0; } .voiceover-divider::after { right: 0; }
+  .file-upload-wrap { position: relative; }
+  .file-upload-wrap input[type="file"] { position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
+  .file-upload-btn { width: 100%; background: var(--panel3); border: 2px dashed var(--border); color: var(--text2); padding: 14px; border-radius: 10px; font-size: 12px; font-weight: 600; text-align: center; cursor: pointer; transition: all 0.2s; }
+  .file-upload-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .file-upload-btn.has-file { border-color: var(--accent); color: var(--accent); background: rgba(0,255,136,0.05); }
+
   .chat-panel { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; height: 400px; }
   .chat-header { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text2); margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
   .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; padding-right: 4px; }
@@ -337,7 +355,38 @@
           <div><div class="setting-label">Music</div><select id="videoMusic"><option value="ambient">Ambient Drone</option><option value="pulse">Mystery Pulse</option><option value="none">No Music</option></select></div>
         </div>
 
-        <div class="section-label">3. Controls</div>
+        <div class="section-label">3. AI Voiceover (Captured in Video!)</div>
+        <div class="voiceover-section">
+          <div class="voiceover-row">
+            <select id="aiVoiceSelect">
+              <option value="Brian">Brian (Male, Deep)</option>
+              <option value="Matthew">Matthew (Male, Natural)</option>
+              <option value="Justin">Justin (Male, Young)</option>
+              <option value="Russell">Russell (Male, Australian)</option>
+              <option value="Amy">Amy (Female, British)</option>
+              <option value="Emma">Emma (Female, British)</option>
+              <option value="Joanna">Joanna (Female, US)</option>
+              <option value="Kendra">Kendra (Female, US)</option>
+              <option value="Kimberly">Kimberly (Female, US)</option>
+              <option value="Ivy">Ivy (Female, Child)</option>
+              <option value="Salli">Salli (Female, Young)</option>
+              <option value="Nicole">Nicole (Female, Australian)</option>
+            </select>
+            <button class="voice-btn" id="generateVoiceBtn" onclick="generateAIVoiceover()">&#127908; Generate Voiceover</button>
+          </div>
+          <div class="voiceover-status" id="voiceoverStatus">No voiceover generated yet.</div>
+          <audio id="aiVoiceAudio" class="voiceover-audio" controls style="display:none"></audio>
+          <div class="voiceover-divider">OR</div>
+          <div class="file-upload-wrap">
+            <input type="file" id="voiceoverUpload" accept="audio/mp3,audio/wav,audio/mpeg,audio/webm" onchange="handleVoiceoverUpload(event)">
+            <div class="file-upload-btn" id="uploadBtnLabel">&#128229; Upload your own MP3 / WAV</div>
+          </div>
+          <div style="font-size:11px;color:var(--text3);margin-top:8px;line-height:1.5">
+            <strong style="color:var(--accent)">Tip:</strong> Use ElevenLabs (free tier) to create a custom voice, download as MP3, and upload above. The voiceover will be <strong>embedded directly into the video</strong>.
+          </div>
+        </div>
+
+        <div class="section-label">4. Controls</div>
         <div class="voice-controls">
           <button class="voice-btn record-btn" id="recordVideoBtn" onclick="recordVideo()">&#128308; RECORD VIDEO</button>
           <button class="voice-btn stop-btn" onclick="stopRecording()">&#9209; STOP</button>
@@ -363,11 +412,12 @@
 
         <div class="section-label">Desktop Method (Best Quality)</div>
         <div style="background:var(--panel2);border-radius:10px;padding:12px;margin-bottom:12px;font-size:12px;color:var(--text2);line-height:1.6">
-          <strong style="color:var(--accent)">Auto-Record:</strong><br>
-          1. Tap "RECORD VIDEO" — browser captures canvas as .webm<br>
-          2. Voice narrates automatically<br>
-          3. Download the finished file<br>
-          4. Convert to MP4 if needed (free at cloudconvert.com)
+          <strong style="color:var(--accent)">Auto-Record with AI Voiceover:</strong><br>
+          1. Generate or upload a voiceover above<br>
+          2. Tap "RECORD VIDEO" — canvas + voiceover captured together<br>
+          3. Download the finished .webm file<br>
+          4. Convert to MP4 if needed (free at cloudconvert.com)<br><br>
+          <strong style="color:var(--accent3)">No voiceover?</strong> Use "Fullscreen Preview" + screen recorder instead.
         </div>
       </div>
 
@@ -407,7 +457,7 @@
 
   <div class="footer">
     Mystery keeps them watching. Facts make them save. Your agents never sleep.<br>
-    Shorts Factory Workshop v6 — Agent Studio with Video
+    Shorts Factory Workshop v7 — Agent Studio with AI Voiceover
   </div>
 </div>
 
@@ -702,7 +752,9 @@ let videoEngine = {
   particles: [],
   stars: [],
   script: null,
-  finishedBlob: null
+  finishedBlob: null,
+  voiceoverAudio: null,
+  voiceoverSource: null
 };
 
 const THEME_DEFS = {
@@ -1096,7 +1148,7 @@ async function recordVideo() {
   videoEngine.scenes = buildScenes(script, videoEngine.duration);
   initParticles(videoEngine.theme, canvas.width, canvas.height);
 
-  const stream = canvas.captureStream(30);
+  const stream = getRecordingStream(canvas);
   const mimeTypes = ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm', 'video/mp4'];
   let mimeType = mimeTypes.find(mt => MediaRecorder.isTypeSupported(mt)) || '';
   if (!mimeType) { alert('Your browser does not support video recording. Try Chrome or Edge.'); return; }
@@ -1127,14 +1179,19 @@ async function recordVideo() {
 
   startMusic(videoEngine.theme, videoEngine.musicType);
 
-  const fullText = script.hook + '. ' + script.body.replace(/\n\n/g, ' ') + '. ' + script.cta;
-  const utter = new SpeechSynthesisUtterance(fullText);
-  const voiceIdx = document.getElementById('voiceSelect').value;
-  if (voices[voiceIdx]) utter.voice = voices[voiceIdx];
-  utter.rate = parseFloat(document.getElementById('rateRange').value) || 0.9;
-  utter.pitch = parseFloat(document.getElementById('pitchRange').value) || 1;
-  utter.lang = document.getElementById('langSelect').value || 'en-US';
-  synth.speak(utter);
+  if (videoEngine.voiceoverAudio && videoEngine.voiceoverAudio.src) {
+    videoEngine.voiceoverAudio.currentTime = 0;
+    videoEngine.voiceoverAudio.play().catch(e => console.log('Audio play failed:', e));
+  } else {
+    const fullText = script.hook + '. ' + script.body.replace(/\n\n/g, ' ') + '. ' + script.cta;
+    const utter = new SpeechSynthesisUtterance(fullText);
+    const voiceIdx = document.getElementById('voiceSelect').value;
+    if (voices[voiceIdx]) utter.voice = voices[voiceIdx];
+    utter.rate = parseFloat(document.getElementById('rateRange').value) || 0.9;
+    utter.pitch = parseFloat(document.getElementById('pitchRange').value) || 1;
+    utter.lang = document.getElementById('langSelect').value || 'en-US';
+    synth.speak(utter);
+  }
 
   document.getElementById('recIndicator').style.display = 'block';
   document.getElementById('videoRecordStatus').textContent = 'Recording... ' + (videoEngine.duration/1000) + 's video';
@@ -1155,6 +1212,7 @@ function stopRecording() {
   }
   stopMusic();
   synth.cancel();
+  stopVoiceoverAudio();
   if (videoEngine.animFrame) cancelAnimationFrame(videoEngine.animFrame);
   videoEngine.running = false;
   document.getElementById('recIndicator').style.display = 'none';
@@ -1189,13 +1247,18 @@ function playFullscreenPreview() {
 
   startMusic(videoEngine.theme, videoEngine.musicType);
 
-  const fullText = script.hook + '. ' + script.body.replace(/\n\n/g, ' ') + '. ' + script.cta;
-  const utter = new SpeechSynthesisUtterance(fullText);
-  const voiceIdx = document.getElementById('voiceSelect').value;
-  if (voices[voiceIdx]) utter.voice = voices[voiceIdx];
-  utter.rate = parseFloat(document.getElementById('rateRange').value) || 0.9;
-  utter.pitch = parseFloat(document.getElementById('pitchRange').value) || 1;
-  synth.speak(utter);
+  if (videoEngine.voiceoverAudio && videoEngine.voiceoverAudio.src) {
+    videoEngine.voiceoverAudio.currentTime = 0;
+    videoEngine.voiceoverAudio.play().catch(e => console.log('Audio play failed:', e));
+  } else {
+    const fullText = script.hook + '. ' + script.body.replace(/\n\n/g, ' ') + '. ' + script.cta;
+    const utter = new SpeechSynthesisUtterance(fullText);
+    const voiceIdx = document.getElementById('voiceSelect').value;
+    if (voices[voiceIdx]) utter.voice = voices[voiceIdx];
+    utter.rate = parseFloat(document.getElementById('rateRange').value) || 0.9;
+    utter.pitch = parseFloat(document.getElementById('pitchRange').value) || 1;
+    synth.speak(utter);
+  }
 
   videoEngine.animFrame = requestAnimationFrame(renderFrame);
   setTimeout(() => { closeFullscreen(); }, videoEngine.duration + 2000);
@@ -1207,8 +1270,102 @@ function closeFullscreen() {
   if (videoEngine.animFrame) cancelAnimationFrame(videoEngine.animFrame);
   stopMusic();
   synth.cancel();
+  stopVoiceoverAudio();
   videoEngine.canvas = document.getElementById('videoCanvas');
   videoEngine.ctx = videoEngine.canvas.getContext('2d');
+}
+
+/* ============================================================
+   AI VOICEOVER ENGINE — StreamElements TTS + MP3 Upload
+   ============================================================ */
+
+async function generateAIVoiceover() {
+  const select = document.getElementById('videoScriptSelect');
+  const val = select.value;
+  if (!val) { alert('Please select a script first!'); return; }
+
+  const { projectIdx, scriptIdx } = JSON.parse(val);
+  const script = projects[projectIdx].scripts[scriptIdx];
+  const voice = document.getElementById('aiVoiceSelect').value;
+  const statusEl = document.getElementById('voiceoverStatus');
+  const btn = document.getElementById('generateVoiceBtn');
+  const audioEl = document.getElementById('aiVoiceAudio');
+
+  const fullText = script.hook + '. ' + script.body.replace(/\n\n/g, ' ') + '. ' + script.cta;
+  const maxChars = 550;
+  const text = fullText.length > maxChars ? fullText.substring(0, maxChars) + '...' : fullText;
+
+  statusEl.textContent = 'Generating voiceover with ' + voice + '...';
+  statusEl.className = 'voiceover-status';
+  btn.disabled = true;
+
+  try {
+    const url = 'https://api.streamelements.com/kappa/v2/speech?voice=' + encodeURIComponent(voice) + '&text=' + encodeURIComponent(text);
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('TTS API error: ' + response.status);
+    const blob = await response.blob();
+    const audioUrl = URL.createObjectURL(blob);
+
+    audioEl.src = audioUrl;
+    audioEl.style.display = 'block';
+    videoEngine.voiceoverAudio = audioEl;
+    videoEngine.voiceoverSource = 'ai';
+
+    statusEl.textContent = 'Voiceover ready! Preview above, then hit RECORD VIDEO.';
+    statusEl.className = 'voiceover-status ready';
+    logActivity('voice', 'AI voiceover generated with ' + voice + '.');
+    updateAgent('voice', { status: 'idle', task: 'Voiceover ready', mood: '🎙️' });
+  } catch (err) {
+    statusEl.textContent = 'Error: ' + err.message + '. Try uploading an MP3 instead.';
+    statusEl.className = 'voiceover-status error';
+    logActivity('voice', 'Voiceover generation failed: ' + err.message);
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function handleVoiceoverUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const statusEl = document.getElementById('voiceoverStatus');
+  const audioEl = document.getElementById('aiVoiceAudio');
+  const label = document.getElementById('uploadBtnLabel');
+
+  const url = URL.createObjectURL(file);
+  audioEl.src = url;
+  audioEl.style.display = 'block';
+  videoEngine.voiceoverAudio = audioEl;
+  videoEngine.voiceoverSource = 'upload';
+
+  label.textContent = 'Loaded: ' + file.name;
+  label.classList.add('has-file');
+  statusEl.textContent = 'Custom voiceover loaded! Preview above, then hit RECORD VIDEO.';
+  statusEl.className = 'voiceover-status ready';
+  logActivity('voice', 'Custom voiceover uploaded: ' + file.name);
+}
+
+function stopVoiceoverAudio() {
+  const audio = videoEngine.voiceoverAudio;
+  if (audio) { try { audio.pause(); audio.currentTime = 0; } catch(e){} }
+}
+
+function getRecordingStream(canvas) {
+  const canvasStream = canvas.captureStream(30);
+  if (!videoEngine.voiceoverAudio || !videoEngine.voiceoverAudio.src) {
+    return canvasStream;
+  }
+  try {
+    const audioStream = videoEngine.voiceoverAudio.captureStream();
+    if (audioStream.getAudioTracks().length === 0) {
+      return canvasStream;
+    }
+    return new MediaStream([
+      ...canvasStream.getVideoTracks(),
+      ...audioStream.getAudioTracks()
+    ]);
+  } catch (e) {
+    return canvasStream;
+  }
 }
 
 populateVideoScripts();
